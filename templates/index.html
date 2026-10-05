@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KINA Bakery</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <a href="/" class="brand">
+
+        <img
+            src="/static/images/logo.png"
+            alt="Logo KINA"
+        >
+
+        <span>KINA</span>
+
+    </a>
+
+    <nav>
+
+        <a href="/" class="active">
+            Home
+        </a>
+
+        <a href="/produk">
+            Produk
+        </a>
+
+        <a href="#kontak">
+            Kontak
+        </a>
+
+        <a href="/keranjang" class="cart-link">
+            🛒
+            <span>Keranjang</span>
+            <b id="cart-count">0</b>
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <p class="eyebrow">
+            WELCOME TO KINA
+        </p>
+
+        <h1>
+            Sweet moments
+            <br>
+            made with love.
+        </h1>
+
+        <p class="hero-description">
+            Nikmati berbagai macam kue dan pastry
+            yang dibuat dengan bahan berkualitas
+            dan penuh cinta.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/produk" class="btn">
+                Lihat Produk
+            </a>
+
+            <a href="#kontak" class="btn-light">
+                Hubungi Kami
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-picture">
+
+        <div class="hero-circle">
+
+            <img
+                src="/static/images/cake.png"
+                alt="Kue KINA"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FAVORITE ================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <p class="eyebrow">
+            OUR FAVORITES
+        </p>
+
+        <h2>
+            Favorite KINA
+        </h2>
+
+        <p>
+            Beberapa menu favorit yang paling banyak
+            disukai pelanggan kami.
+        </p>
+
+    </div>
+
+
+    <div class="product-grid">
+
+
+        <!-- FAVORITE 1 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <img
+                    src="/static/images/cake.png"
+                    alt="Strawberry Cake"
+                >
+
+            </div>
+
+            <div class="product-content">
+
+                <span class="category">
+                    CAKE
+                </span>
+
+                <h3>
+                    Strawberry Cake
+                </h3>
+
+                <p>
+                    Cake lembut dengan cream strawberry
+                    yang manis dan segar.
+                </p>
+
+                <div class="product-footer">
+
+                    <strong>
+                        Rp 85.000
+                    </strong>
+
+                    <button
+                        onclick="addToCart(
+                            1,
+                            'Strawberry Cake',
+                            85000,
+                            '/static/images/cake.png'
+                        )"
+                    >
+                        + Keranjang
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FAVORITE 2 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <img
+                    src="/static/images/brownies.png"
+                    alt="Chocolate Brownies"
+                >
+
+            </div>
+
+            <div class="product-content">
+
+                <span class="category">
+                    BROWNIES
+                </span>
+
+                <h3>
+                    Chocolate Brownies
+                </h3>
+
+                <p>
+                    Brownies cokelat lembut dengan
+                    rasa cokelat yang pekat.
+                </p>
+
+                <div class="product-footer">
+
+                    <strong>
+                        Rp 65.000
+                    </strong>
+
+                    <button
+                        onclick="addToCart(
+                            2,
+                            'Chocolate Brownies',
+                            65000,
+                            '/static/images/brownies.png'
+                        )"
+                    >
+                        + Keranjang
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FAVORITE 3 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <img
+                    src="/static/images/cookies.png"
+                    alt="KINA Cookies"
+                >
+
+            </div>
+
+            <div class="product-content">
+
+                <span class="category">
+                    COOKIES
+                </span>
+
+                <h3>
+                    KINA Cookies
+                </h3>
+
+                <p>
+                    Cookies renyah dengan aroma butter
+                    dan chocolate chips.
+                </p>
+
+                <div class="product-footer">
+
+                    <strong>
+                        Rp 45.000
+                    </strong>
+
+                    <button
+                        onclick="addToCart(
+                            3,
+                            'KINA Cookies',
+                            45000,
+                            '/static/images/cookies.png'
+                        )"
+                    >
+                        + Keranjang
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="center">
+
+        <a
+            href="/produk"
+            class="btn-outline"
+        >
+            Lihat Semua Produk
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about-section">
+
+    <div class="about-picture">
+
+        <img
+            src="/static/images/brownies.png"
+            alt="KINA Bakery"
+        >
+
+    </div>
+
+
+    <div class="about-content">
+
+        <p class="eyebrow">
+            ABOUT KINA
+        </p>
+
+        <h2>
+            Dibuat dengan
+            bahan berkualitas.
+        </h2>
+
+        <p>
+            KINA adalah toko kue yang menyediakan
+            berbagai macam cake, brownies, cookies,
+            pastry, dan custom cake.
+        </p>
+
+        <p>
+            Kami menggunakan bahan berkualitas untuk
+            memberikan rasa yang lezat di setiap
+            gigitan.
+        </p>
+
+        <a
+            href="/produk"
+            class="btn"
+        >
+            Lihat Menu
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section
+    id="kontak"
+    class="contact-section"
+>
+
+    <div class="contact-wrapper">
+
+
+        <div class="contact-info">
+
+            <p class="eyebrow">
+                CONTACT US
+            </p>
+
+            <h2>
+                Yuk, ngobrol
+                dengan KINA!
+            </h2>
+
+            <p>
+                Ada pertanyaan tentang produk?
+                Mau pesan cake untuk acara spesial?
+                Atau ingin membuat custom cake?
+            </p>
+
+
+            <div class="contact-detail">
+
+                <div class="contact-icon">
+                    📍
+                </div>
+
+                <div>
+                    <strong>
+                        Alamat
+                    </strong>
+
+                    <p>
+                        Jl. Bakery KINA No. 10
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="contact-detail">
+
+                <div class="contact-icon">
+                    📱
+                </div>
+
+                <div>
+                    <strong>
+                        WhatsApp
+                    </strong>
+
+                    <p>
+                        08xx-xxxx-xxxx
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="contact-detail">
+
+                <div class="contact-icon">
+                    ✉️
+                </div>
+
+                <div>
+                    <strong>
+                        Email
+                    </strong>
+
+                    <p>
+                        kinabakery@gmail.com
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- GANTI NOMOR DI SINI -->
+
+            <a
+                href="https://wa.me/628xxxxxxxxxx?text=Halo%20KINA%2C%20saya%20ingin%20bertanya%20tentang%20produk."
+                target="_blank"
+                class="whatsapp-button"
+            >
+                <span>💬</span>
+
+                Chat WhatsApp
+
+            </a>
+
+        </div>
+
+
+        <!-- FORM KONTAK -->
+
+        <div class="contact-box">
+
+            <h3>
+                Kirim Pesan
+            </h3>
+
+            <p>
+                Isi form berikut dan kami akan
+                menghubungi kamu.
+            </p>
+
+
+            <!-- GANTI NOMOR WHATSAPP DI LINK JS -->
+
+            <form
+                onsubmit="sendContactWhatsApp(event)"
+            >
+
+                <input
+                    type="text"
+                    id="contact-name"
+                    placeholder="Nama kamu"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="contact-phone"
+                    placeholder="Nomor WhatsApp"
+                    required
+                >
+
+                <textarea
+                    id="contact-message"
+                    rows="5"
+                    placeholder="Tulis pesan..."
+                    required
+                ></textarea>
+
+                <button
+                    type="submit"
+                >
+                    Kirim ke WhatsApp
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-brand">
+
+        <img
+            src="/static/images/logo.png"
+            alt="KINA"
+        >
+
+        <span>
+            KINA
+        </span>
+
+    </div>
+
+    <p>
+        © 2026 KINA Bakery.
+        Made with love.
+    </p>
+
+</footer>
+
+
+<script src="/static/js/script.js"></script>
+
+</body>
+</html>

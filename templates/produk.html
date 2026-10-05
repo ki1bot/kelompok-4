@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Produk - KINA Bakery</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="/" class="brand">
+        <img src="/static/images/logo.png" alt="KINA">
+        <span>KINA</span>
+    </a>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/produk" class="active">Produk</a>
+        <a href="/kontak">Kontak</a>
+
+        <a href="/keranjang">
+            🛒 Keranjang
+            <b id="cart-count">0</b>
+        </a>
+    </nav>
+
+</header>
+
+
+<section class="page-header">
+
+    <p class="eyebrow">KINA BAKERY</p>
+
+    <h1>Menu KINA</h1>
+
+    <p>
+        Pilih kue favoritmu untuk dipesan.
+    </p>
+
+</section>
+
+
+<section class="products">
+
+    <!-- CAKE -->
+
+    <div class="product-card">
+
+        <img
+            src="/static/images/cake.png"
+            alt="Strawberry Cake"
+        >
+
+        <div class="product-content">
+
+            <h3>
+                Strawberry Cake
+            </h3>
+
+            <p>
+                Cake lembut dengan krim
+                dan strawberry.
+            </p>
+
+            <strong>
+                Rp 85.000
+            </strong>
+
+            <button
+                onclick="addToCart(
+                    1,
+                    'Strawberry Cake',
+                    85000,
+                    '/static/images/cake.png'
+                )"
+            >
+                + Keranjang
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- BROWNIES -->
+
+    <div class="product-card">
+
+        <img
+            src="/static/images/brownies.png"
+            alt="Chocolate Brownies"
+        >
+
+        <div class="product-content">
+
+            <h3>
+                Chocolate Brownies
+            </h3>
+
+            <p>
+                Brownies cokelat dengan
+                rasa manis dan lembut.
+            </p>
+
+            <strong>
+                Rp 65.000
+            </strong>
+
+            <button
+                onclick="addToCart(
+                    2,
+                    'Chocolate Brownies',
+                    65000,
+                    '/static/images/brownies.png'
+                )"
+            >
+                + Keranjang
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- COOKIES -->
+
+    <div class="product-card">
+
+        <img
+            src="/static/images/cookies.png"
+            alt="KINA Cookies"
+        >
+
+        <div class="product-content">
+
+            <h3>
+                KINA Cookies
+            </h3>
+
+            <p>
+                Cookies renyah dengan
+                rasa butter yang lezat.
+            </p>
+
+            <strong>
+                Rp 45.000
+            </strong>
+
+            <button
+                onclick="addToCart(
+                    3,
+                    'KINA Cookies',
+                    45000,
+                    '/static/images/cookies.png'
+                )"
+            >
+                + Keranjang
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PASTRY -->
+
+    <div class="product-card">
+
+        <img
+            src="/static/images/pastry.png"
+            alt="KINA Pastry"
+        >
+
+        <div class="product-content">
+
+            <h3>
+                KINA Pastry
+            </h3>
+
+            <p>
+                Pastry renyah dan buttery
+                untuk teman santai.
+            </p>
+
+            <strong>
+                Rp 35.000
+            </strong>
+
+            <button
+                onclick="addToCart(
+                    4,
+                    'KINA Pastry',
+                    35000,
+                    '/static/images/pastry.png'
+                )"
+            >
+                + Keranjang
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CUSTOM CAKE -->
+
+    <div class="product-card">
+
+        <img
+            src="/static/images/custom-cake.png"
+            alt="Custom Cake"
+        >
+
+        <div class="product-content">
+
+            <h3>
+                Custom Cake
+            </h3>
+
+            <p>
+                Kue custom untuk ulang tahun
+                dan acara spesial.
+            </p>
+
+            <strong>
+                Mulai Rp 150.000
+            </strong>
+
+            <button
+                onclick="addToCart(
+                    5,
+                    'Custom Cake',
+                    150000,
+                    '/static/images/custom-cake.png'
+                )"
+            >
+                + Keranjang
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-brand">
+
+        <img src="/static/images/logo.png" alt="KINA">
+
+        <span>KINA</span>
+
+    </div>
+
+    <p>
+        © 2026 KINA Bakery
+    </p>
+
+</footer>
+
+
+<script src="/static/js/script.js"></script>
+
+</body>
+</html>

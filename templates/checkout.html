@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Checkout - KINA Bakery</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="/" class="brand">
+
+        <img
+            src="/static/images/logo.png"
+            alt="KINA"
+        >
+
+        <span>
+            KINA
+        </span>
+
+    </a>
+
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/produk">
+            Produk
+        </a>
+
+        <a href="/#kontak">
+            Kontak
+        </a>
+
+        <a
+            href="/keranjang"
+            class="cart-link"
+        >
+            🛒
+            <span>
+                Keranjang
+            </span>
+
+            <b id="cart-count">
+                0
+            </b>
+
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="page-header">
+
+    <p class="eyebrow">
+        CHECKOUT
+    </p>
+
+    <h1>
+        Checkout
+    </h1>
+
+    <p>
+        Lengkapi data pesananmu.
+    </p>
+
+</section>
+
+
+<section class="checkout-section">
+
+
+    <!-- DATA PEMBELI -->
+
+    <div class="checkout-box">
+
+        <h2>
+            Data Pembeli
+        </h2>
+
+
+        <form
+            onsubmit="sendOrderToWhatsApp(event)"
+        >
+
+            <label>
+                Nama Lengkap
+            </label>
+
+            <input
+                type="text"
+                id="order-name"
+                placeholder="Nama lengkap"
+                required
+            >
+
+
+            <label>
+                Nomor WhatsApp
+            </label>
+
+            <input
+                type="tel"
+                id="order-phone"
+                placeholder="08xxxxxxxxxx"
+                required
+            >
+
+
+            <label>
+                Alamat
+            </label>
+
+            <textarea
+                id="order-address"
+                rows="4"
+                placeholder="Alamat lengkap"
+                required
+            ></textarea>
+
+
+            <label>
+                Metode Pembayaran
+            </label>
+
+            <select
+                id="order-payment"
+                required
+            >
+
+                <option value="">
+                    Pilih metode
+                </option>
+
+                <option value="Transfer Bank">
+                    Transfer Bank
+                </option>
+
+                <option value="COD">
+                    COD
+                </option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="checkout-button"
+            >
+                💬 Pesan via WhatsApp
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- RINGKASAN -->
+
+    <div class="checkout-summary">
+
+        <h2>
+            Ringkasan Pesanan
+        </h2>
+
+        <div id="checkout-items"></div>
+
+        <div class="summary-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong id="checkout-total">
+                Rp 0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<footer>
+
+    <div class="footer-brand">
+
+        <img
+            src="/static/images/logo.png"
+            alt="KINA"
+        >
+
+        <span>
+            KINA
+        </span>
+
+    </div>
+
+    <p>
+        © 2026 KINA Bakery.
+        Made with love.
+    </p>
+
+</footer>
+
+
+<script src="/static/js/script.js"></script>
+
+</body>
+</html>
