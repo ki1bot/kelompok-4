@@ -167,6 +167,7 @@ const state = {
 };
 
 let toastTimer = null;
+let scrollFrameRequested = false;
 
 function formatRupiah(value) {
   return new Intl.NumberFormat("id-ID", {
@@ -367,6 +368,8 @@ function initializeNavigation() {
     if (window.innerWidth >= 768) {
       closeMobileMenu();
     }
+
+    requestNavigationUpdate();
   });
 
   document.addEventListener("keydown", (event) => {
@@ -374,6 +377,80 @@ function initializeNavigation() {
       closeMobileMenu();
     }
   });
+
+  initializeScrollNavigation();
+}
+
+function updateActiveNavigation() {
+  const sections = document.querySelectorAll("main section[id]");
+
+  const header = document.querySelector("header");
+
+  if (sections.length === 0) {
+    return;
+  }
+
+  const headerHeight = header ? header.offsetHeight : 0;
+  const threshold = headerHeight + 120;
+
+  let currentSection = sections[0].id;
+
+  sections.forEach((section) => {
+    const position = section.getBoundingClientRect();
+
+    if (position.top <= threshold) {
+      currentSection = section.id;
+    }
+  });
+
+  const atBottom =
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 4;
+
+  if (atBottom) {
+    currentSection = sections[sections.length - 1].id;
+  }
+
+  document.querySelectorAll(".nav-link, .mobile-link").forEach((link) => {
+    const href = link.getAttribute("href");
+    const isActive = href === `#${currentSection}`;
+
+    if (isActive) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
+function requestNavigationUpdate() {
+  if (scrollFrameRequested) {
+    return;
+  }
+
+  scrollFrameRequested = true;
+
+  window.requestAnimationFrame(() => {
+    updateActiveNavigation();
+    scrollFrameRequested = false;
+  });
+}
+
+function initializeScrollNavigation() {
+  window.addEventListener("scroll", requestNavigationUpdate, { passive: true });
+
+  window.addEventListener("hashchange", requestNavigationUpdate);
+
+  window.addEventListener("load", requestNavigationUpdate);
+
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMobileMenu();
+      requestNavigationUpdate();
+    });
+  });
+
+  updateActiveNavigation();
 }
 
 function updateDestinationCards() {
@@ -397,6 +474,20 @@ function updateDestinationCards() {
   });
 }
 
+function updateDestinationLabels() {
+  const budgetDestination = document.getElementById("budgetDestination");
+
+  const itineraryDestination = document.getElementById("itineraryDestination");
+
+  if (budgetDestination) {
+    budgetDestination.textContent = state.selectedDestination;
+  }
+
+  if (itineraryDestination) {
+    itineraryDestination.textContent = state.selectedDestination;
+  }
+}
+
 function selectDestination(destination) {
   if (!Object.prototype.hasOwnProperty.call(destinationCosts, destination)) {
     return;
@@ -412,12 +503,29 @@ function selectDestination(destination) {
     });
 
     state.activeDay = 1;
+    hideActivityForm();
   }
 
-  saveState();
-  updateDestinationCards();
+  const inputs = getBudgetInputs();
 
-  window.location.assign("budget.html");
+  if (inputs) {
+    Object.entries(inputs).forEach(([field, input]) => {
+      input.value = state.budget[field];
+    });
+  }
+
+  updateDestinationCards();
+  updateDestinationLabels();
+  calculateBudget();
+  renderItinerary();
+  saveState();
+
+  showToast(`${destination} berhasil dipilih sebagai tujuan perjalanan.`);
+
+  document.getElementById("budget").scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
 }
 
 function initializeDestinations() {
@@ -476,12 +584,17 @@ function calculateBudget() {
     percentage === null ? 0 : Math.max(0, Math.min(100, percentage));
 
   const summaryBudget = document.getElementById("summaryBudget");
+
   const summaryExpense = document.getElementById("summaryExpense");
+
   const summaryRemaining = document.getElementById("summaryRemaining");
 
   const budgetPercentage = document.getElementById("budgetPercentage");
+
   const budgetProgress = document.getElementById("budgetProgress");
+
   const budgetProgressTrack = document.getElementById("budgetProgressTrack");
+
   const budgetStatus = document.getElementById("budgetStatus");
 
   if (
@@ -497,7 +610,9 @@ function calculateBudget() {
   }
 
   summaryBudget.textContent = formatRupiah(totalBudget);
+
   summaryExpense.textContent = formatRupiah(expenses);
+
   summaryRemaining.textContent = formatRupiah(remaining);
 
   summaryRemaining.classList.toggle("is-negative", remaining < 0);
@@ -505,7 +620,10 @@ function calculateBudget() {
   budgetPercentage.textContent = percentage === null ? "—" : `${percentage}%`;
 
   budgetProgress.style.width = `${progress}%`;
+
   budgetProgressTrack.setAttribute("aria-valuenow", String(progress));
+
+  budgetStatus.classList.add("budget-status");
 
   budgetStatus.classList.remove("is-safe", "is-warning", "is-danger");
 
@@ -515,10 +633,12 @@ function calculateBudget() {
     if (expenses > 0) {
       budgetStatus.textContent =
         "Belum ada anggaran tersedia. Masukkan total budget terlebih dahulu.";
+
       budgetProgress.style.backgroundColor = "#e11d48";
     } else {
       budgetStatus.textContent =
         "Masukkan jumlah budget untuk mulai menghitung.";
+
       budgetProgress.style.backgroundColor = "#f59e0b";
     }
 
@@ -561,11 +681,7 @@ function initializeBudget() {
     return;
   }
 
-  const destinationLabel = document.getElementById("budgetDestination");
-
-  if (destinationLabel) {
-    destinationLabel.textContent = state.selectedDestination;
-  }
+  updateDestinationLabels();
 
   Object.entries(inputs).forEach(([field, input]) => {
     input.value = state.budget[field];
@@ -579,6 +695,7 @@ function initializeBudget() {
 
     input.addEventListener("change", () => {
       input.value = normalizeNumber(input.value);
+
       state.budget[field] = normalizeNumber(input.value);
 
       calculateBudget();
@@ -587,12 +704,14 @@ function initializeBudget() {
   });
 
   const calculateButton = document.getElementById("calculateBudget");
+
   const resetButton = document.getElementById("resetBudget");
 
   if (calculateButton) {
     calculateButton.addEventListener("click", () => {
       calculateBudget();
       saveState();
+
       showToast("Ringkasan anggaran sudah diperbarui.");
     });
   }
@@ -635,16 +754,20 @@ function updateDayTabs() {
     tab.setAttribute("aria-pressed", String(isActive));
 
     tab.classList.toggle("border-teal-200", isActive);
+
     tab.classList.toggle("bg-teal-50", isActive);
 
     tab.classList.toggle("border-transparent", !isActive);
+
     tab.classList.toggle("hover:bg-slate-100", !isActive);
 
     tab.querySelectorAll("span").forEach((span) => {
       span.classList.toggle("text-teal-800", isActive);
+
       span.classList.toggle("text-teal-700", isActive);
 
       span.classList.toggle("text-slate-700", !isActive);
+
       span.classList.toggle("text-slate-500", !isActive);
     });
   });
@@ -667,8 +790,11 @@ function renderItinerary() {
   );
 
   const destinationLabel = document.getElementById("itineraryDestination");
+
   const dayLabel = document.getElementById("activeDayLabel");
+
   const dayTitle = document.getElementById("activeDayTitle");
+
   const countLabel = document.getElementById("activityCount");
 
   if (destinationLabel) {
@@ -774,6 +900,7 @@ function deleteActivity(activityId) {
 
 function hideActivityForm() {
   const form = document.getElementById("activityForm");
+
   const button = document.getElementById("openActivityForm");
 
   if (!form || !button) {
@@ -788,7 +915,9 @@ function hideActivityForm() {
 
 function toggleActivityForm() {
   const form = document.getElementById("activityForm");
+
   const button = document.getElementById("openActivityForm");
+
   const timeInput = document.getElementById("activityTime");
 
   if (!form || !button) {
@@ -803,6 +932,7 @@ function toggleActivityForm() {
   }
 
   form.classList.remove("hidden");
+
   button.setAttribute("aria-expanded", "true");
 
   if (timeInput) {
@@ -814,7 +944,9 @@ function saveActivity(event) {
   event.preventDefault();
 
   const timeInput = document.getElementById("activityTime");
+
   const titleInput = document.getElementById("activityTitle");
+
   const locationInput = document.getElementById("activityLocation");
 
   if (!timeInput || !titleInput || !locationInput) {
@@ -827,6 +959,7 @@ function saveActivity(event) {
 
   if (!time || !title || !location) {
     showToast("Lengkapi jam, nama kegiatan, dan lokasi.");
+
     return;
   }
 
@@ -879,7 +1012,9 @@ function initializeItinerary() {
   });
 
   const openButton = document.getElementById("openActivityForm");
+
   const cancelButton = document.getElementById("cancelActivity");
+
   const activityForm = document.getElementById("activityForm");
 
   if (openButton) {
@@ -926,6 +1061,9 @@ function initializeApp() {
   initializeDestinations();
   initializeBudget();
   initializeItinerary();
+
+  updateDestinationLabels();
+  updateActiveNavigation();
 }
 
 if (document.readyState === "loading") {
