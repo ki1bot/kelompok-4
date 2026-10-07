@@ -1,14 +1,635 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kelompok 4</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta
+      name="description"
+      content="TripMate adalah website travel planner sederhana untuk memilih destinasi, menghitung budget, dan membuat itinerary perjalanan."
+    />
+    <title>TripMate - Travel Planner</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <div class="rifqi">
-      <p>Hallo</p>
+    <header class="header" id="header">
+      <div class="container navbar">
+        <a href="#home" class="brand">
+          <span class="brand-icon">✈</span>
+          <span>TripMate</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+          aria-label="Buka menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+          <a href="#home" class="nav-link active">Home</a>
+          <a href="#destinasi" class="nav-link">Destinasi</a>
+          <a href="#budget" class="nav-link">Budget</a>
+          <a href="#itinerary" class="nav-link">Itinerary</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-content">
+          <div class="hero-text">
+            <span class="hero-label">YOUR TRAVEL PLANNER</span>
+
+            <h1>
+              Rencanakan perjalanan
+              <span>impianmu.</span>
+            </h1>
+
+            <p>
+              Pilih destinasi favorit, atur anggaran perjalanan, dan buat
+              itinerary yang terorganisir dalam satu tempat.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#destinasi" class="button button-primary">
+                Mulai Merencanakan
+                <span>→</span>
+              </a>
+
+              <a href="#itinerary" class="button button-secondary">
+                Lihat Itinerary
+              </a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat">
+                <strong>4+</strong>
+                <span>Destinasi</span>
+              </div>
+
+              <div class="stat">
+                <strong>100%</strong>
+                <span>Gratis</span>
+              </div>
+
+              <div class="stat">
+                <strong>Mudah</strong>
+                <span>Digunakan</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-image">
+              <img
+                src="https://images.unsplash.com/photo-1533669955142-6a73332af4db?auto=format&fit=crop&w=900&q=85"
+                alt="Pemandangan Bali"
+              />
+
+              <span class="hero-card-badge">Rekomendasi</span>
+            </div>
+
+            <div class="hero-card-content">
+              <div>
+                <span class="location-label">INDONESIA</span>
+                <h3>Bali</h3>
+              </div>
+
+              <div class="hero-card-price">
+                <span>Mulai dari</span>
+                <strong>Rp3,5 Jt</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-indicator">
+          <span>SCROLL</span>
+          <div class="scroll-line"></div>
+        </div>
+      </section>
+
+      <section class="section destinations-section" id="destinasi">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="section-label">EXPLORE</span>
+              <h2>Pilih Destinasi</h2>
+            </div>
+
+            <p>
+              Temukan destinasi yang sesuai dengan rencana perjalanan dan budget
+              yang kamu miliki.
+            </p>
+          </div>
+
+          <div class="destination-grid" id="destinationGrid">
+            <article
+              class="destination-card"
+              data-destination="Bali"
+              data-transport="1000000"
+              data-hotel="1500000"
+              data-food="650000"
+              data-attraction="350000"
+            >
+              <div class="destination-image">
+                <img
+                  src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=85"
+                  alt="Bali"
+                />
+                <span class="destination-country">Indonesia</span>
+              </div>
+
+              <div class="destination-content">
+                <div class="destination-header">
+                  <div>
+                    <h3>Bali</h3>
+                    <span>Denpasar, Indonesia</span>
+                  </div>
+
+                  <div class="rating">★ 4.9</div>
+                </div>
+
+                <p>
+                  Nikmati wisata pantai, budaya, kuliner, dan keindahan alam
+                  Pulau Dewata.
+                </p>
+
+                <div class="destination-footer">
+                  <div>
+                    <span>Estimasi perjalanan</span>
+                    <strong>Rp3.500.000</strong>
+                  </div>
+
+                  <button class="choose-destination" type="button">
+                    Pilih
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="destination-card"
+              data-destination="Yogyakarta"
+              data-transport="650000"
+              data-hotel="900000"
+              data-food="550000"
+              data-attraction="400000"
+            >
+              <div class="destination-image">
+                <img
+                  src="https://images.unsplash.com/photo-1584810359583-96fc3448beaa?auto=format&fit=crop&w=900&q=85"
+                  alt="Yogyakarta"
+                />
+                <span class="destination-country">Indonesia</span>
+              </div>
+
+              <div class="destination-content">
+                <div class="destination-header">
+                  <div>
+                    <h3>Yogyakarta</h3>
+                    <span>DIY, Indonesia</span>
+                  </div>
+
+                  <div class="rating">★ 4.8</div>
+                </div>
+
+                <p>
+                  Jelajahi kota budaya dengan wisata sejarah, kuliner, dan
+                  suasana yang nyaman.
+                </p>
+
+                <div class="destination-footer">
+                  <div>
+                    <span>Estimasi perjalanan</span>
+                    <strong>Rp2.500.000</strong>
+                  </div>
+
+                  <button class="choose-destination" type="button">
+                    Pilih
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="destination-card"
+              data-destination="Bandung"
+              data-transport="500000"
+              data-hotel="750000"
+              data-food="450000"
+              data-attraction="300000"
+            >
+              <div class="destination-image">
+                <img
+                  src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=900&q=85"
+                  alt="Bandung"
+                />
+                <span class="destination-country">Indonesia</span>
+              </div>
+
+              <div class="destination-content">
+                <div class="destination-header">
+                  <div>
+                    <h3>Bandung</h3>
+                    <span>Jawa Barat, Indonesia</span>
+                  </div>
+
+                  <div class="rating">★ 4.7</div>
+                </div>
+
+                <p>
+                  Cocok untuk wisata alam, kuliner, belanja, dan menikmati
+                  suasana pegunungan.
+                </p>
+
+                <div class="destination-footer">
+                  <div>
+                    <span>Estimasi perjalanan</span>
+                    <strong>Rp2.000.000</strong>
+                  </div>
+
+                  <button class="choose-destination" type="button">
+                    Pilih
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="destination-card"
+              data-destination="Tokyo"
+              data-transport="4000000"
+              data-hotel="2000000"
+              data-food="1200000"
+              data-attraction="800000"
+            >
+              <div class="destination-image">
+                <img
+                  src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=85"
+                  alt="Tokyo"
+                />
+                <span class="destination-country">Jepang</span>
+              </div>
+
+              <div class="destination-content">
+                <div class="destination-header">
+                  <div>
+                    <h3>Tokyo</h3>
+                    <span>Tokyo, Jepang</span>
+                  </div>
+
+                  <div class="rating">★ 4.9</div>
+                </div>
+
+                <p>
+                  Rasakan kombinasi teknologi modern, budaya tradisional,
+                  kuliner, dan kehidupan kota.
+                </p>
+
+                <div class="destination-footer">
+                  <div>
+                    <span>Estimasi perjalanan</span>
+                    <strong>Rp8.000.000</strong>
+                  </div>
+
+                  <button class="choose-destination" type="button">
+                    Pilih
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section budget-section" id="budget">
+        <div class="container">
+          <div class="section-heading budget-heading">
+            <div>
+              <span class="section-label">PLAN YOUR MONEY</span>
+              <h2>Budget Planner</h2>
+            </div>
+
+            <p>
+              Hitung seluruh estimasi biaya perjalanan agar pengeluaran tetap
+              sesuai dengan budget.
+            </p>
+          </div>
+
+          <div class="budget-layout">
+            <div class="budget-form-card">
+              <div class="card-heading">
+                <div>
+                  <span class="card-number">01</span>
+                  <h3>Rencana Anggaran</h3>
+                </div>
+
+                <span class="selected-destination" id="selectedDestination">
+                  Belum memilih destinasi
+                </span>
+              </div>
+
+              <div class="input-group budget-main-input">
+                <label for="totalBudget">Total Budget</label>
+
+                <div class="currency-input">
+                  <span>Rp</span>
+                  <input
+                    type="number"
+                    id="totalBudget"
+                    min="0"
+                    placeholder="5000000"
+                    value="5000000"
+                  />
+                </div>
+              </div>
+
+              <div class="expense-grid">
+                <div class="input-group">
+                  <label for="transport">Transportasi</label>
+                  <div class="currency-input">
+                    <span>Rp</span>
+                    <input
+                      type="number"
+                      id="transport"
+                      min="0"
+                      value="1000000"
+                    />
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label for="hotel">Hotel</label>
+                  <div class="currency-input">
+                    <span>Rp</span>
+                    <input type="number" id="hotel" min="0" value="1500000" />
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label for="food">Makanan</label>
+                  <div class="currency-input">
+                    <span>Rp</span>
+                    <input type="number" id="food" min="0" value="750000" />
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label for="attraction">Tiket Wisata</label>
+                  <div class="currency-input">
+                    <span>Rp</span>
+                    <input
+                      type="number"
+                      id="attraction"
+                      min="0"
+                      value="500000"
+                    />
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label for="shopping">Belanja</label>
+                  <div class="currency-input">
+                    <span>Rp</span>
+                    <input type="number" id="shopping" min="0" value="0" />
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label for="otherExpense">Lain-lain</label>
+                  <div class="currency-input">
+                    <span>Rp</span>
+                    <input type="number" id="otherExpense" min="0" value="0" />
+                  </div>
+                </div>
+              </div>
+
+              <button
+                id="calculateBudget"
+                class="button calculate-button"
+                type="button"
+              >
+                Hitung Budget
+                <span>→</span>
+              </button>
+            </div>
+
+            <aside class="budget-summary">
+              <span class="summary-label">RINGKASAN</span>
+
+              <h3>Budget Perjalanan</h3>
+
+              <div class="summary-chart">
+                <div class="budget-circle" id="budgetCircle">
+                  <div>
+                    <span>Sisa Budget</span>
+                    <strong id="remainingBudgetCircle">25%</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="summary-list">
+                <div class="summary-item">
+                  <span>Total Budget</span>
+                  <strong id="summaryBudget">Rp5.000.000</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span>Pengeluaran</span>
+                  <strong id="summaryExpense">Rp3.750.000</strong>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-item total">
+                  <span>Sisa Budget</span>
+                  <strong id="summaryRemaining">Rp1.250.000</strong>
+                </div>
+              </div>
+
+              <div class="budget-status safe" id="budgetStatus">
+                Budget kamu masih aman.
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section itinerary-section" id="itinerary">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="section-label">YOUR SCHEDULE</span>
+              <h2>Itinerary Perjalanan</h2>
+            </div>
+
+            <p>
+              Susun kegiatan perjalanan berdasarkan hari dan waktu agar
+              perjalanan lebih terorganisir.
+            </p>
+          </div>
+
+          <div class="itinerary-layout">
+            <div class="itinerary-sidebar">
+              <span class="sidebar-label">PERJALANAN</span>
+              <h3 id="itineraryDestination">Bali Trip</h3>
+              <p>3 Hari / 2 Malam</p>
+
+              <div class="day-tabs" id="dayTabs">
+                <button class="day-tab active" type="button" data-day="1">
+                  <span>01</span>
+                  <div>
+                    <strong>Hari Pertama</strong>
+                    <small>Kedatangan</small>
+                  </div>
+                </button>
+
+                <button class="day-tab" type="button" data-day="2">
+                  <span>02</span>
+                  <div>
+                    <strong>Hari Kedua</strong>
+                    <small>Eksplorasi</small>
+                  </div>
+                </button>
+
+                <button class="day-tab" type="button" data-day="3">
+                  <span>03</span>
+                  <div>
+                    <strong>Hari Ketiga</strong>
+                    <small>Kepulangan</small>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="itinerary-content">
+              <div class="itinerary-header">
+                <div>
+                  <span id="activeDayLabel">HARI 01</span>
+                  <h3 id="activeDayTitle">Hari Pertama</h3>
+                </div>
+
+                <button
+                  class="add-activity-button"
+                  id="openActivityForm"
+                  type="button"
+                >
+                  <span>+</span>
+                  Tambah Aktivitas
+                </button>
+              </div>
+
+              <div class="activity-form hidden" id="activityForm">
+                <div class="activity-form-grid">
+                  <div class="input-group">
+                    <label for="activityTime">Waktu</label>
+                    <input type="time" id="activityTime" />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="activityTitle">Aktivitas</label>
+                    <input
+                      type="text"
+                      id="activityTitle"
+                      placeholder="Contoh: Makan siang"
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="activityLocation">Lokasi</label>
+                    <input
+                      type="text"
+                      id="activityLocation"
+                      placeholder="Contoh: Seminyak"
+                    />
+                  </div>
+                </div>
+
+                <div class="activity-form-actions">
+                  <button
+                    id="cancelActivity"
+                    class="cancel-button"
+                    type="button"
+                  >
+                    Batal
+                  </button>
+
+                  <button id="saveActivity" class="save-button" type="button">
+                    Simpan Aktivitas
+                  </button>
+                </div>
+              </div>
+
+              <div class="timeline" id="timeline"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container cta-content">
+          <div>
+            <span>READY TO GO?</span>
+            <h2>Perjalanan terbaik dimulai dari rencana yang baik.</h2>
+          </div>
+
+          <a href="#destinasi" class="button cta-button">
+            Rencanakan Sekarang
+            <span>→</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <a href="#home" class="brand">
+            <span class="brand-icon">✈</span>
+            <span>TripMate</span>
+          </a>
+
+          <p>
+            Website travel planner sederhana untuk membantu merencanakan
+            perjalanan dengan lebih mudah.
+          </p>
+        </div>
+
+        <div class="footer-menu">
+          <span>MENU</span>
+          <a href="#home">Home</a>
+          <a href="#destinasi">Destinasi</a>
+          <a href="#budget">Budget</a>
+          <a href="#itinerary">Itinerary</a>
+        </div>
+
+        <div class="footer-info">
+          <span>TRAVEL PLANNER</span>
+          <p>HTML</p>
+          <p>CSS</p>
+          <p>JavaScript</p>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>© 2026 TripMate. Dibuat untuk pembelajaran web.</p>
+        <a href="#home">Kembali ke atas ↑</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast">
+      <span id="toastMessage"></span>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
