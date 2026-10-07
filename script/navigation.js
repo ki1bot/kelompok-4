@@ -38,6 +38,20 @@ function updateActiveNavigation() {
   });
 }
 
+function updateBackToTop() {
+  const button = document.getElementById("backToTop");
+
+  if (!button) {
+    return;
+  }
+
+  const isVisible = window.scrollY > 400;
+
+  button.classList.toggle("is-visible", isVisible);
+  button.setAttribute("aria-hidden", String(!isVisible));
+  button.tabIndex = isVisible ? 0 : -1;
+}
+
 export function requestNavigationUpdate() {
   if (scrollFrameRequested) {
     return;
@@ -47,6 +61,7 @@ export function requestNavigationUpdate() {
 
   requestAnimationFrame(() => {
     updateActiveNavigation();
+    updateBackToTop();
     scrollFrameRequested = false;
   });
 }
@@ -64,6 +79,35 @@ function closeMobileMenu() {
   button.setAttribute("aria-expanded", "false");
   button.setAttribute("aria-label", "Buka menu navigasi");
   label.textContent = "Menu";
+}
+
+function initializeBackToTop() {
+  const button = document.getElementById("backToTop");
+
+  if (!button) {
+    return;
+  }
+
+  button.addEventListener("click", () => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}#home`,
+    );
+
+    window.scrollTo({
+      top: 0,
+      behavior: reduceMotion ? "instant" : "smooth",
+    });
+
+    requestNavigationUpdate();
+  });
+
+  updateBackToTop();
 }
 
 export function initializeNavigation() {
@@ -117,5 +161,6 @@ export function initializeNavigation() {
   window.addEventListener("hashchange", requestNavigationUpdate);
   window.addEventListener("load", requestNavigationUpdate);
 
+  initializeBackToTop();
   requestNavigationUpdate();
 }

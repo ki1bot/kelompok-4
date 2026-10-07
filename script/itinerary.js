@@ -83,49 +83,48 @@ export function renderItinerary() {
                 </p>
             </div>
         `;
-
     return;
   }
 
   timeline.innerHTML = activities
     .map((activity) => {
       return `
-            <div class="grid grid-cols-[58px_minmax(0,1fr)_34px] items-start gap-3 border-b border-slate-100 py-5 last:border-b-0 sm:grid-cols-[76px_minmax(0,1fr)_38px] sm:gap-5">
-                <div class="pt-0.5">
-                    <span class="text-sm font-bold text-teal-700">
-                        ${activity.time}
-                    </span>
-                </div>
-
-                <div class="min-w-0 border-l-2 border-teal-100 pl-4 sm:pl-5">
-                    <h5 class="wrap-break-word text-sm font-bold text-slate-800 sm:text-base">
-                        ${escapeHtml(activity.title)}
-                    </h5>
-
-                    <div class="mt-2 flex items-start gap-2 text-sm text-slate-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="mt-0.5 shrink-0" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/>
-                            <circle cx="12" cy="10" r="2.5"/>
-                        </svg>
-
-                        <span class="wrap-break-word">
-                            ${escapeHtml(activity.location)}
+                <div class="grid grid-cols-[58px_minmax(0,1fr)_34px] items-start gap-3 border-b border-slate-100 py-5 last:border-b-0 sm:grid-cols-[76px_minmax(0,1fr)_38px] sm:gap-5">
+                    <div class="pt-0.5">
+                        <span class="text-sm font-bold text-teal-700">
+                            ${activity.time}
                         </span>
                     </div>
-                </div>
 
-                <button
-                    type="button"
-                    data-delete-id="${escapeHtml(activity.id)}"
-                    aria-label="Hapus kegiatan ${escapeHtml(activity.title)}"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 10v7M14 10v7"/>
-                    </svg>
-                </button>
-            </div>
-        `;
+                    <div class="min-w-0 border-l-2 border-teal-100 pl-4 sm:pl-5">
+                        <h5 class="wrap-break-word text-sm font-bold text-slate-800 sm:text-base">
+                            ${escapeHtml(activity.title)}
+                        </h5>
+
+                        <div class="mt-2 flex items-start gap-2 text-sm text-slate-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mt-0.5 shrink-0" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/>
+                                <circle cx="12" cy="10" r="2.5"/>
+                            </svg>
+
+                            <span class="wrap-break-word">
+                                ${escapeHtml(activity.location)}
+                            </span>
+                        </div>
+                    </div>
+
+                    <button
+                        type="button"
+                        data-delete-id="${escapeHtml(activity.id)}"
+                        aria-label="Hapus kegiatan ${escapeHtml(activity.title)}"
+                        class="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 10v7M14 10v7"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
     })
     .join("");
 }
@@ -133,7 +132,6 @@ export function renderItinerary() {
 function deleteActivity(activityId) {
   const destination = state.selectedDestination;
   const day = state.activeDay;
-
   const activities = state.itineraries[destination][day];
 
   const remainingActivities = activities.filter((activity) => {

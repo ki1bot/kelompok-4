@@ -6,17 +6,17 @@ import { initializeItinerary } from "./itinerary.js";
 
 const sections = [
   {
-    file: "destinasi.html",
+    file: new URL("../view/destinasi.html", import.meta.url),
     slot: "destinasi-slot",
     id: "destinasi",
   },
   {
-    file: "budget.html",
+    file: new URL("../view/budget.html", import.meta.url),
     slot: "budget-slot",
     id: "budget",
   },
   {
-    file: "itinerary.html",
+    file: new URL("../view/itinerary.html", import.meta.url),
     slot: "itinerary-slot",
     id: "itinerary",
   },
@@ -26,7 +26,7 @@ async function loadSection(config) {
   const response = await fetch(config.file);
 
   if (!response.ok) {
-    throw new Error(`Gagal memuat ${config.file}: ${response.status}`);
+    throw new Error(`Gagal memuat ${config.file.pathname}: ${response.status}`);
   }
 
   const html = await response.text();
@@ -61,7 +61,7 @@ async function loadAllSections() {
 }
 
 function navigateToInitialSection() {
-  const sectionId = window.location.hash.slice(1);
+  const sectionId = decodeURIComponent(window.location.hash.slice(1));
 
   if (!sectionId) {
     requestNavigationUpdate();
@@ -76,7 +76,7 @@ function navigateToInitialSection() {
 
   requestAnimationFrame(() => {
     target.scrollIntoView({
-      behavior: "auto",
+      behavior: "instant",
       block: "start",
     });
 
@@ -112,7 +112,7 @@ initializeApp().catch((error) => {
     const message = document.createElement("p");
     message.className = "mx-auto max-w-7xl px-5 py-8 text-sm text-red-700";
     message.textContent =
-      "Sebagian halaman gagal dimuat. Pastikan seluruh file berada dalam folder yang sama dan website dijalankan melalui Live Server.";
+      "Sebagian halaman gagal dimuat. Pastikan folder view, style, dan script berada di root proyek serta website dijalankan melalui Live Server.";
 
     main.appendChild(message);
   }
