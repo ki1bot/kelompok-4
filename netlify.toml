@@ -1,0 +1,8 @@
+
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/"
+  to = "/view/index.html"
+  status = 200
