@@ -5,11 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Destinasi | TripMate</title>
     <meta http-equiv="refresh" content="0;url=index.html#destinasi" />
-    <script>
-      window.location.replace("index.html#destinasi");
-    </script>
   </head>
   <body>
-    <a href="index.html#destinasi">Destinasi</a>
+    <section id="destinasi" class="py-18 sm:py-22">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div
+          class="mb-9 flex flex-col justify-between gap-4 md:flex-row md:items-end"
+        >
+          <div>
+            <p class="mb-3 text-sm font-semibold text-teal-700">
+              Temukan tempat liburanmu
+            </p>
+            <h2
+              class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+            >
+              Destinasi pilihan
+            </h2>
+            <p
+              class="mt-3 max-w-xl text-sm leading-7 text-slate-600 sm:text-base"
+            >
+              Beberapa pilihan kota yang bisa kamu jadikan tujuan perjalanan
+              berikutnya.
+            </p>
+          </div>
+
+          <p class="text-sm text-slate-500">
+            Pilih salah satu untuk mulai merencanakan.
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <article
+            data-destination="Bali"
+            data-transport="1000000"
+            data-hotel="1500000"
+            data-food="650000"
+            data-attraction="350000"
+            class="destination-card overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=85"
+                alt="Pura di Bali"
+                loading="lazy"
+                class="h-52 w-full object-cover transition duration-300 hover:scale-105"
+              />
+              <span
+                class="absolute top-3 left-3 rounded-md bg-white/95 px-3 py-1.5 text-xs font-medium text-slate-700"
+              >
+                Indonesia
+              </span>
+            </div>
+
+            <div class="p-5">
+              <h3 class="text-xl font-bold text-slate-900">Bali</h3>
+              <p class="mt-2 min-h-16 text-sm leading-6 text-slate-600">
+                Pantai yang indah, wisata budaya, dan beragam pilihan kuliner.
+              </p>
+
+              <div class="mt-5 border-t border-slate-100 pt-4">
+                <p class="text-xs text-slate-500">Estimasi 3 hari 2 malam</p>
+                <p class="mt-1 text-lg font-bold text-slate-900">Rp3.500.000</p>
+                <button
+                  type="button"
+                  aria-pressed="true"
+                  class="choose-destination mt-4 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-teal-50"
+                >
+                  Pilih destinasi
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            data-destination="Yogyakarta"
+            data-transport="650000"
+            data-hotel="900000"
+            data-food="550000"
+            data-attraction="400000"
+            class="destination-card overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1584810359583-96fc3448beaa?auto=format&fit=crop&w=800&q=85"
+                alt="Candi di Yogyakarta"
+                loading="lazy"
+                class="h-52 w-full object-cover transition duration-300 hover:scale-105"
+              />
+              <span
+                class="absolute top-3 left-3 rounded-md bg-white/95 px-3 py-1.5 text-xs font-medium text-slate-700"
+              >
+                Indonesia
+              </span>
+            </div>
+
+            <div class="p-5">
+              <h3 class="text-xl font-bold text-slate-900">Yogyakarta</h3>
+              <p class="mt-2 min-h-16 text-sm leading-6 text-slate-600">
+                Jelajahi candi, Malioboro, suasana kota, dan wisata sejarah.
+              </p>
+
+              <div class="mt-5 border-t border-slate-100 pt-4">
+                <p class="text-xs text-slate-500">Estimasi 3 hari 2 malam</p>
+                <p class="mt-1 text-lg font-bold text-slate-900">Rp2.500.000</p>
+                <button
+                  type="button"
+                  aria-pressed="false"
+                  class="choose-destination mt-4 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-teal-50"
+                >
+                  Pilih destinasi
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            data-destination="Bandung"
+            data-transport="500000"
+            data-hotel="750000"
+            data-food="450000"
+            data-attraction="300000"
+            class="destination-card overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=85"
+                alt="Suasana wisata Bandung"
+                loading="lazy"
+                class="h-52 w-full object-cover transition duration-300 hover:scale-105"
+              />
+              <span
+                class="absolute top-3 left-3 rounded-md bg-white/95 px-3 py-1.5 text-xs font-medium text-slate-700"
+              >
+                Indonesia
+              </span>
+            </div>
+
+            <div class="p-5">
+              <h3 class="text-xl font-bold text-slate-900">Bandung</h3>
+              <p class="mt-2 min-h-16 text-sm leading-6 text-slate-600">
+                Nikmati udara sejuk, tempat wisata alam, kafe, dan kuliner.
+              </p>
+
+              <div class="mt-5 border-t border-slate-100 pt-4">
+                <p class="text-xs text-slate-500">Estimasi 3 hari 2 malam</p>
+                <p class="mt-1 text-lg font-bold text-slate-900">Rp2.000.000</p>
+                <button
+                  type="button"
+                  aria-pressed="false"
+                  class="choose-destination mt-4 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-teal-50"
+                >
+                  Pilih destinasi
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            data-destination="Tokyo"
+            data-transport="4000000"
+            data-hotel="2000000"
+            data-food="1200000"
+            data-attraction="800000"
+            class="destination-card overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=85"
+                alt="Pemandangan Tokyo di Jepang"
+                loading="lazy"
+                class="h-52 w-full object-cover transition duration-300 hover:scale-105"
+              />
+              <span
+                class="absolute top-3 left-3 rounded-md bg-white/95 px-3 py-1.5 text-xs font-medium text-slate-700"
+              >
+                Jepang
+              </span>
+            </div>
+
+            <div class="p-5">
+              <h3 class="text-xl font-bold text-slate-900">Tokyo</h3>
+              <p class="mt-2 min-h-16 text-sm leading-6 text-slate-600">
+                Pengalaman kota modern dengan budaya Jepang yang unik.
+              </p>
+
+              <div class="mt-5 border-t border-slate-100 pt-4">
+                <p class="text-xs text-slate-500">Estimasi 3 hari 2 malam</p>
+                <p class="mt-1 text-lg font-bold text-slate-900">Rp8.000.000</p>
+                <button
+                  type="button"
+                  aria-pressed="false"
+                  class="choose-destination mt-4 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-teal-50"
+                >
+                  Pilih destinasi
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="mt-5 text-xs leading-6 text-slate-500">
+          Harga di atas merupakan estimasi contoh untuk satu orang, bukan harga
+          pemesanan atau penawaran real-time. Biaya sebenarnya dapat berubah
+          sesuai tanggal, lokasi keberangkatan, dan kebutuhan perjalanan.
+        </p>
+      </div>
+    </section>
   </body>
 </html>

@@ -5,11 +5,357 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budget Planner | TripMate</title>
     <meta http-equiv="refresh" content="0;url=index.html#budget" />
-    <script>
-      window.location.replace("index.html#budget");
-    </script>
   </head>
   <body>
-    <a href="index.html#budget">Budget Planner</a>
+    <section id="budget" class="bg-slate-50 py-18 sm:py-22">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div class="mb-9">
+          <p class="mb-3 text-sm font-semibold text-teal-700">
+            Rencanakan pengeluaran
+          </p>
+          <h2
+            class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+          >
+            Budget Planner
+          </h2>
+          <p
+            class="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base"
+          >
+            Masukkan anggaran yang kamu punya, lalu sesuaikan setiap kebutuhan
+            perjalanan. Perhitungan akan diperbarui secara otomatis.
+          </p>
+        </div>
+
+        <div
+          class="grid items-start gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(300px,1fr)]"
+        >
+          <div
+            class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
+          >
+            <div
+              class="mb-7 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-5"
+            >
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">
+                  Rincian anggaran
+                </h3>
+                <p class="mt-1 text-sm text-slate-500">
+                  Perkiraan biaya untuk 3 hari 2 malam.
+                </p>
+              </div>
+              <span
+                id="budgetDestination"
+                class="rounded-full bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800"
+              >
+                Bali
+              </span>
+            </div>
+
+            <div class="mb-7">
+              <label
+                for="totalBudget"
+                class="mb-2 block text-sm font-semibold text-slate-700"
+              >
+                Total budget yang tersedia
+              </label>
+              <div class="relative">
+                <span
+                  class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm font-medium text-slate-500"
+                >
+                  Rp
+                </span>
+                <input
+                  id="totalBudget"
+                  type="number"
+                  min="0"
+                  step="1000"
+                  value="5000000"
+                  inputmode="numeric"
+                  class="w-full rounded-lg border border-slate-300 bg-white py-3.5 pr-4 pl-12 text-base font-semibold text-slate-900 outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                />
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h4 class="font-semibold text-slate-800">Rincian pengeluaran</h4>
+              <p class="mt-1 text-sm text-slate-500">
+                Ubah nominal sesuai perkiraan kebutuhanmu.
+              </p>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label
+                  for="transport"
+                  class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Transportasi
+                </label>
+                <div class="relative">
+                  <span
+                    class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-slate-400"
+                    >Rp</span
+                  >
+                  <input
+                    id="transport"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="1000000"
+                    inputmode="numeric"
+                    class="budget-input w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pl-12 text-sm outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="hotel"
+                  class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Penginapan
+                </label>
+                <div class="relative">
+                  <span
+                    class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-slate-400"
+                    >Rp</span
+                  >
+                  <input
+                    id="hotel"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="1500000"
+                    inputmode="numeric"
+                    class="budget-input w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pl-12 text-sm outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="food"
+                  class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Makan dan minum
+                </label>
+                <div class="relative">
+                  <span
+                    class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-slate-400"
+                    >Rp</span
+                  >
+                  <input
+                    id="food"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="650000"
+                    inputmode="numeric"
+                    class="budget-input w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pl-12 text-sm outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="attraction"
+                  class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Tiket wisata
+                </label>
+                <div class="relative">
+                  <span
+                    class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-slate-400"
+                    >Rp</span
+                  >
+                  <input
+                    id="attraction"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="350000"
+                    inputmode="numeric"
+                    class="budget-input w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pl-12 text-sm outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="shopping"
+                  class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Belanja dan oleh-oleh
+                </label>
+                <div class="relative">
+                  <span
+                    class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-slate-400"
+                    >Rp</span
+                  >
+                  <input
+                    id="shopping"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="0"
+                    inputmode="numeric"
+                    class="budget-input w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pl-12 text-sm outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="otherExpense"
+                  class="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Pengeluaran lain
+                </label>
+                <div class="relative">
+                  <span
+                    class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-slate-400"
+                    >Rp</span
+                  >
+                  <input
+                    id="otherExpense"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="0"
+                    inputmode="numeric"
+                    class="budget-input w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pl-12 text-sm outline-none transition focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="mt-7 flex flex-wrap items-center gap-3 border-t border-slate-100 pt-6"
+            >
+              <button
+                id="calculateBudget"
+                type="button"
+                class="rounded-lg bg-teal-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-800"
+              >
+                Hitung Budget
+              </button>
+              <button
+                id="resetBudget"
+                type="button"
+                class="rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+              >
+                Reset Estimasi
+              </button>
+            </div>
+          </div>
+
+          <aside
+            class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-slate-900">Ringkasan budget</h3>
+              <span
+                class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
+              >
+                IDR
+              </span>
+            </div>
+
+            <div class="mt-7 rounded-xl bg-teal-50 p-5">
+              <p class="text-sm font-medium text-teal-800">Sisa budget</p>
+              <p
+                id="summaryRemaining"
+                class="mt-2 break-all text-3xl font-extrabold tracking-tight text-teal-800 sm:text-4xl"
+              >
+                Rp1.500.000
+              </p>
+              <p class="mt-2 text-xs text-teal-700">
+                Setelah dikurangi seluruh pengeluaran.
+              </p>
+            </div>
+
+            <div class="mt-7 space-y-4">
+              <div class="flex items-center justify-between gap-3 text-sm">
+                <span class="text-slate-500">Total anggaran</span>
+                <strong
+                  id="summaryBudget"
+                  class="text-right font-semibold text-slate-800"
+                >
+                  Rp5.000.000
+                </strong>
+              </div>
+
+              <div class="flex items-center justify-between gap-3 text-sm">
+                <span class="text-slate-500">Total pengeluaran</span>
+                <strong
+                  id="summaryExpense"
+                  class="text-right font-semibold text-slate-800"
+                >
+                  Rp3.500.000
+                </strong>
+              </div>
+            </div>
+
+            <div class="mt-7 border-t border-slate-100 pt-6">
+              <div class="mb-3 flex items-center justify-between text-sm">
+                <span class="font-medium text-slate-600">
+                  Budget terpakai
+                </span>
+                <strong id="budgetPercentage" class="text-slate-800">
+                  70%
+                </strong>
+              </div>
+
+              <div
+                id="budgetProgressTrack"
+                role="progressbar"
+                aria-label="Persentase budget terpakai"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="70"
+                class="h-2.5 w-full overflow-hidden rounded-full bg-slate-100"
+              >
+                <div
+                  id="budgetProgress"
+                  class="h-full w-[70%] rounded-full bg-teal-600 transition-all duration-300"
+                ></div>
+              </div>
+
+              <p class="mt-2 text-xs text-slate-400">
+                Bar maksimal menunjukkan 100% anggaran.
+              </p>
+            </div>
+
+            <div
+              id="budgetStatus"
+              role="status"
+              class="mt-7 rounded-lg border border-teal-100 bg-teal-50 p-4 text-sm leading-6 text-teal-800"
+            >
+              Budget masih mencukupi untuk rencana ini.
+            </div>
+
+            <div class="mt-6 flex items-start gap-3 rounded-lg bg-slate-50 p-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="mt-0.5 shrink-0 text-slate-400"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 11v6M12 7h.01" />
+              </svg>
+              <p class="text-xs leading-6 text-slate-500">
+                Tips: sisihkan dana cadangan untuk pengeluaran tidak terduga
+                selama perjalanan.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
