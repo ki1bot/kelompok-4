@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Susun itinerary perjalanan sesuai destinasi pilihanmu bersama TripMate."
+    />
+    <title>Itinerary | TripMate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body class="bg-white text-slate-800 antialiased">
+    <header
+      class="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-md"
+    >
+      <div
+        class="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10"
+      >
+        <a
+          href="index.html"
+          class="flex items-center gap-2.5 text-xl font-extrabold tracking-tight text-slate-900"
+        >
+          <span
+            class="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-700 text-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="21"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M17.8 19.2 16 11l4.3-4.3a2.1 2.1 0 0 0-3-3L13 8l-8.2-1.8L2 9l7.2 3.8L6 16l-3-.5L1 17.5 6.5 23l2-2-1-3 3.2-3.2 3.8 7.2z"
+                transform="translate(1 -1) scale(.92)"
+              />
+            </svg>
+          </span>
+          Trip<span class="text-teal-700">Mate</span>
+        </a>
+
+        <nav
+          class="hidden items-center gap-9 md:flex"
+          aria-label="Navigasi utama"
+        >
+          <a href="index.html" class="nav-link text-sm font-medium">Beranda</a>
+          <a href="destinasi.html" class="nav-link text-sm font-medium"
+            >Destinasi</a
+          >
+          <a href="budget.html" class="nav-link text-sm font-medium">Budget</a>
+          <a
+            href="itinerary.html"
+            class="nav-link text-sm font-semibold"
+            aria-current="page"
+            >Itinerary</a
+          >
+        </nav>
+
+        <a
+          href="destinasi.html"
+          class="hidden rounded-lg bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-teal-800 md:inline-flex"
+        >
+          Mulai Rencanakan
+        </a>
+
+        <button
+          id="menuButton"
+          type="button"
+          aria-label="Buka menu navigasi"
+          aria-controls="mobileMenu"
+          aria-expanded="false"
+          class="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 md:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="19"
+            height="19"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <span id="menuButtonLabel">Menu</span>
+        </button>
+      </div>
+
+      <nav
+        id="mobileMenu"
+        aria-label="Navigasi mobile"
+        class="hidden border-t border-slate-100 bg-white px-5 py-4 md:hidden"
+      >
+        <div class="flex flex-col gap-1">
+          <a
+            href="index.html"
+            class="mobile-link rounded-lg px-3 py-3 text-sm font-semibold"
+            >Beranda</a
+          >
+          <a
+            href="destinasi.html"
+            class="mobile-link rounded-lg px-3 py-3 text-sm font-semibold"
+            >Destinasi</a
+          >
+          <a
+            href="budget.html"
+            class="mobile-link rounded-lg px-3 py-3 text-sm font-semibold"
+            >Budget</a
+          >
+          <a
+            href="itinerary.html"
+            class="mobile-link rounded-lg px-3 py-3 text-sm font-semibold"
+            aria-current="page"
+            >Itinerary</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="itinerary" class="py-18 sm:py-22">
+        <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div
+            class="mb-9 flex flex-col justify-between gap-4 md:flex-row md:items-end"
+          >
+            <div>
+              <p class="mb-3 text-sm font-semibold text-teal-700">
+                Susun kegiatanmu
+              </p>
+              <h1
+                class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+              >
+                Itinerary Perjalanan
+              </h1>
+              <p
+                class="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base"
+              >
+                Atur apa saja yang ingin kamu lakukan selama liburan. Tambahkan
+                kegiatan dan sesuaikan jadwalnya dengan kebutuhanmu.
+              </p>
+            </div>
+
+            <span
+              class="inline-flex w-fit items-center gap-2 rounded-lg bg-slate-100 px-4 py-2.5 text-sm font-medium text-slate-600"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              >
+                <rect x="3" y="5" width="18" height="16" rx="2" />
+                <path d="M7 3v4M17 3v4M3 10h18" />
+              </svg>
+              3 hari 2 malam
+            </span>
+          </div>
+
+          <div
+            class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
+          >
+            <div
+              class="flex flex-col justify-between gap-4 border-b border-slate-200 bg-slate-50 px-5 py-5 sm:flex-row sm:items-center sm:px-8"
+            >
+              <div>
+                <p class="text-xs font-medium text-slate-500">
+                  Destinasi terpilih
+                </p>
+                <h3
+                  id="itineraryDestination"
+                  class="mt-1 text-xl font-bold text-slate-900"
+                >
+                  Bali
+                </h3>
+              </div>
+            </div>
+
+            <div class="grid lg:grid-cols-[240px_minmax(0,1fr)]">
+              <div
+                class="border-b border-slate-200 bg-[#fbfcfc] p-5 sm:p-6 lg:border-r lg:border-b-0"
+              >
+                <p class="mb-4 text-sm font-semibold text-slate-700">
+                  Pilih hari
+                </p>
+
+                <div class="grid grid-cols-3 gap-2 lg:grid-cols-1">
+                  <button
+                    type="button"
+                    data-day="1"
+                    aria-pressed="true"
+                    class="day-tab rounded-lg border border-teal-200 bg-teal-50 p-3 text-left transition sm:p-4"
+                  >
+                    <span class="block text-sm font-semibold text-teal-800">
+                      Hari 1
+                    </span>
+                    <span class="mt-1 hidden text-xs text-teal-700 sm:block">
+                      Kedatangan
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-day="2"
+                    aria-pressed="false"
+                    class="day-tab rounded-lg border border-transparent p-3 text-left transition hover:bg-slate-100 sm:p-4"
+                  >
+                    <span class="block text-sm font-semibold text-slate-700">
+                      Hari 2
+                    </span>
+                    <span class="mt-1 hidden text-xs text-slate-500 sm:block">
+                      Jalan-jalan
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-day="3"
+                    aria-pressed="false"
+                    class="day-tab rounded-lg border border-transparent p-3 text-left transition hover:bg-slate-100 sm:p-4"
+                  >
+                    <span class="block text-sm font-semibold text-slate-700">
+                      Hari 3
+                    </span>
+                    <span class="mt-1 hidden text-xs text-slate-500 sm:block">
+                      Kepulangan
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="min-w-0 p-5 sm:p-8">
+                <div
+                  class="flex flex-col justify-between gap-4 border-b border-slate-100 pb-6 sm:flex-row sm:items-center"
+                >
+                  <div>
+                    <p
+                      id="activeDayLabel"
+                      class="text-xs font-semibold text-teal-700"
+                    >
+                      Hari ke-1
+                    </p>
+                    <h4
+                      id="activeDayTitle"
+                      class="mt-1 text-xl font-bold text-slate-900"
+                    >
+                      Hari Pertama
+                    </h4>
+                    <p id="activityCount" class="mt-1 text-sm text-slate-500">
+                      5 kegiatan terjadwal
+                    </p>
+                  </div>
+
+                  <button
+                    id="openActivityForm"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="activityForm"
+                    class="inline-flex w-fit items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800"
+                  >
+                    <span class="text-lg leading-none">+</span>
+                    Tambah kegiatan
+                  </button>
+                </div>
+
+                <form
+                  id="activityForm"
+                  class="mt-6 hidden rounded-xl border border-teal-100 bg-teal-50/50 p-5"
+                >
+                  <h5 class="mb-4 text-sm font-bold text-slate-800">
+                    Tambah kegiatan baru
+                  </h5>
+
+                  <div class="grid gap-4 md:grid-cols-[130px_1fr]">
+                    <div>
+                      <label
+                        for="activityTime"
+                        class="mb-2 block text-xs font-semibold text-slate-600"
+                      >
+                        Jam
+                      </label>
+                      <input
+                        id="activityTime"
+                        type="time"
+                        required
+                        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        for="activityTitle"
+                        class="mb-2 block text-xs font-semibold text-slate-600"
+                      >
+                        Nama kegiatan
+                      </label>
+                      <input
+                        id="activityTitle"
+                        type="text"
+                        maxlength="80"
+                        required
+                        placeholder="Contoh: Makan siang"
+                        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                      />
+                    </div>
+
+                    <div class="md:col-span-2">
+                      <label
+                        for="activityLocation"
+                        class="mb-2 block text-xs font-semibold text-slate-600"
+                      >
+                        Lokasi
+                      </label>
+                      <input
+                        id="activityLocation"
+                        type="text"
+                        maxlength="100"
+                        required
+                        placeholder="Contoh: Jalan Malioboro"
+                        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mt-5 flex justify-end gap-3">
+                    <button
+                      id="cancelActivity"
+                      type="button"
+                      class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                    >
+                      Batal
+                    </button>
+                    <button
+                      type="submit"
+                      class="rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800"
+                    >
+                      Simpan kegiatan
+                    </button>
+                  </div>
+                </form>
+
+                <div id="timeline" class="mt-2" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[#f1f7f5] py-14 sm:py-18">
+        <div
+          class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-5 sm:px-8 md:flex-row md:items-center lg:px-10"
+        >
+          <div>
+            <h2
+              class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+            >
+              Sudah siap untuk liburan berikutnya?
+            </h2>
+            <p class="mt-3 max-w-xl text-sm leading-7 text-slate-600">
+              Mulai dari destinasi yang ingin kamu kunjungi, lalu susun rencana
+              perjalananmu sendiri.
+            </p>
+          </div>
+          <a
+            href="destinasi.html"
+            class="inline-flex shrink-0 items-center gap-3 rounded-lg bg-teal-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-800"
+          >
+            Pilih Destinasi
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white">
+      <div
+        class="mx-auto grid max-w-7xl gap-9 px-5 py-12 sm:grid-cols-2 sm:px-8 lg:grid-cols-[1.7fr_1fr_1fr] lg:px-10"
+      >
+        <div>
+          <a
+            href="index.html"
+            class="text-xl font-extrabold tracking-tight text-slate-900"
+            >Trip<span class="text-teal-700">Mate</span></a
+          >
+          <p class="mt-4 max-w-sm text-sm leading-7 text-slate-500">
+            Teman sederhana untuk memilih tujuan, menghitung pengeluaran, dan
+            menyusun jadwal perjalanan.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="mb-4 text-sm font-bold text-slate-800">Navigasi</h3>
+          <div class="flex flex-col gap-3">
+            <a
+              href="index.html"
+              class="w-fit text-sm text-slate-500 hover:text-teal-700"
+              >Beranda</a
+            >
+            <a
+              href="destinasi.html"
+              class="w-fit text-sm text-slate-500 hover:text-teal-700"
+              >Destinasi</a
+            >
+            <a
+              href="budget.html"
+              class="w-fit text-sm text-slate-500 hover:text-teal-700"
+              >Budget Planner</a
+            >
+            <a
+              href="itinerary.html"
+              class="w-fit text-sm text-slate-500 hover:text-teal-700"
+              >Itinerary</a
+            >
+          </div>
+        </div>
+
+        <div>
+          <h3 class="mb-4 text-sm font-bold text-slate-800">Tentang Website</h3>
+          <p class="text-sm leading-7 text-slate-500">
+            Website travel planning berbasis HTML, Tailwind CSS, dan JavaScript.
+            <br />
+            Yang di buat oleh Kelompok 4
+          </p>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-100">
+        <div
+          class="mx-auto flex max-w-7xl flex-col justify-between gap-3 px-5 py-5 text-xs text-slate-500 sm:flex-row sm:px-8 lg:px-10"
+        >
+          <p>
+            © <span id="currentYear">2026</span> TripMate. All rights reserved.
+          </p>
+          <p>
+            Dibuat untuk tugas kelompok Mata Kuliah Pemrograman Berbasis
+            Website.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      id="toast"
+      role="status"
+      aria-live="polite"
+      class="fixed right-5 bottom-5 z-[100] hidden max-w-sm rounded-lg bg-slate-900 px-5 py-3.5 text-sm font-medium text-white shadow-xl"
+    >
+      <span id="toastMessage"></span>
+    </div>
+  </body>
+</html>

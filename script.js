@@ -1,65 +1,4 @@
-const menuButton = document.getElementById("menuButton");
-const menuButtonLabel = document.getElementById("menuButtonLabel");
-const mobileMenu = document.getElementById("mobileMenu");
-const mobileLinks = document.querySelectorAll(".mobile-link");
-
-const destinationCards = Array.from(
-  document.querySelectorAll(".destination-card"),
-);
-const destinationButtons = document.querySelectorAll(".choose-destination");
-
-const budgetDestination = document.getElementById("budgetDestination");
-const itineraryDestination = document.getElementById("itineraryDestination");
-
-const budgetInputs = {
-  totalBudget: document.getElementById("totalBudget"),
-  transport: document.getElementById("transport"),
-  hotel: document.getElementById("hotel"),
-  food: document.getElementById("food"),
-  attraction: document.getElementById("attraction"),
-  shopping: document.getElementById("shopping"),
-  otherExpense: document.getElementById("otherExpense"),
-};
-
-const calculateBudgetButton = document.getElementById("calculateBudget");
-const resetBudgetButton = document.getElementById("resetBudget");
-
-const summaryBudget = document.getElementById("summaryBudget");
-const summaryExpense = document.getElementById("summaryExpense");
-const summaryRemaining = document.getElementById("summaryRemaining");
-
-const budgetPercentage = document.getElementById("budgetPercentage");
-const budgetProgress = document.getElementById("budgetProgress");
-const budgetProgressTrack = document.getElementById("budgetProgressTrack");
-const budgetStatus = document.getElementById("budgetStatus");
-
-const dayTabs = document.querySelectorAll(".day-tab");
-const activeDayLabel = document.getElementById("activeDayLabel");
-const activeDayTitle = document.getElementById("activeDayTitle");
-const activityCount = document.getElementById("activityCount");
-const timeline = document.getElementById("timeline");
-
-const activityForm = document.getElementById("activityForm");
-const openActivityFormButton = document.getElementById("openActivityForm");
-const cancelActivityButton = document.getElementById("cancelActivity");
-
-const activityTimeInput = document.getElementById("activityTime");
-const activityTitleInput = document.getElementById("activityTitle");
-const activityLocationInput = document.getElementById("activityLocation");
-
-const toast = document.getElementById("toast");
-const toastMessage = document.getElementById("toastMessage");
-
 const storageKey = "tripmate-planner-v2";
-
-const expenseFields = [
-  "transport",
-  "hotel",
-  "food",
-  "attraction",
-  "shopping",
-  "otherExpense",
-];
 
 const destinationCosts = {
   Bali: {
@@ -96,402 +35,160 @@ const destinationCosts = {
   },
 };
 
-const defaultItineraries = {
+const itineraryTemplates = {
   Bali: {
     1: [
-      {
-        id: "bali-1",
-        time: "08:00",
-        title: "Berangkat menuju Bali",
-        location: "Bandara Soekarno-Hatta",
-      },
-      {
-        id: "bali-2",
-        time: "11:00",
-        title: "Check-in penginapan",
-        location: "Seminyak, Bali",
-      },
-      {
-        id: "bali-3",
-        time: "13:00",
-        title: "Makan siang",
-        location: "Seminyak",
-      },
-      {
-        id: "bali-4",
-        time: "16:00",
-        title: "Menikmati suasana pantai",
-        location: "Pantai Kuta",
-      },
-      {
-        id: "bali-5",
-        time: "19:00",
-        title: "Makan malam",
-        location: "Seminyak",
-      },
+      ["08:00", "Berangkat menuju Bali", "Bandara Soekarno-Hatta"],
+      ["11:00", "Check-in penginapan", "Seminyak, Bali"],
+      ["13:00", "Makan siang", "Seminyak"],
+      ["16:00", "Menikmati suasana pantai", "Pantai Kuta"],
+      ["19:00", "Makan malam", "Seminyak"],
     ],
     2: [
-      {
-        id: "bali-6",
-        time: "07:30",
-        title: "Sarapan",
-        location: "Penginapan",
-      },
-      {
-        id: "bali-7",
-        time: "09:00",
-        title: "Mengunjungi Pura Tanah Lot",
-        location: "Tabanan, Bali",
-      },
-      {
-        id: "bali-8",
-        time: "13:00",
-        title: "Makan siang",
-        location: "Canggu",
-      },
-      {
-        id: "bali-9",
-        time: "15:30",
-        title: "Jalan-jalan di Canggu",
-        location: "Canggu, Bali",
-      },
-      {
-        id: "bali-10",
-        time: "19:30",
-        title: "Kembali ke penginapan",
-        location: "Seminyak",
-      },
+      ["07:30", "Sarapan", "Penginapan"],
+      ["09:00", "Mengunjungi Pura Tanah Lot", "Tabanan, Bali"],
+      ["13:00", "Makan siang", "Canggu"],
+      ["15:30", "Jalan-jalan di Canggu", "Canggu, Bali"],
+      ["19:30", "Kembali ke penginapan", "Seminyak"],
     ],
     3: [
-      {
-        id: "bali-11",
-        time: "08:00",
-        title: "Sarapan pagi",
-        location: "Penginapan",
-      },
-      {
-        id: "bali-12",
-        time: "10:00",
-        title: "Belanja oleh-oleh",
-        location: "Kuta",
-      },
-      {
-        id: "bali-13",
-        time: "12:00",
-        title: "Check-out penginapan",
-        location: "Seminyak",
-      },
-      {
-        id: "bali-14",
-        time: "15:00",
-        title: "Menuju bandara",
-        location: "Bandara Ngurah Rai",
-      },
+      ["08:00", "Sarapan pagi", "Penginapan"],
+      ["10:00", "Belanja oleh-oleh", "Kuta"],
+      ["12:00", "Check-out penginapan", "Seminyak"],
+      ["15:00", "Menuju bandara", "Bandara Ngurah Rai"],
     ],
   },
-
   Yogyakarta: {
     1: [
-      {
-        id: "yogya-1",
-        time: "07:00",
-        title: "Berangkat menuju Yogyakarta",
-        location: "Jakarta",
-      },
-      {
-        id: "yogya-2",
-        time: "12:00",
-        title: "Makan siang",
-        location: "Yogyakarta",
-      },
-      {
-        id: "yogya-3",
-        time: "14:00",
-        title: "Check-in hotel",
-        location: "Pusat Kota Yogyakarta",
-      },
-      {
-        id: "yogya-4",
-        time: "16:00",
-        title: "Jalan-jalan di Malioboro",
-        location: "Jalan Malioboro",
-      },
-      {
-        id: "yogya-5",
-        time: "19:00",
-        title: "Wisata kuliner malam",
-        location: "Kawasan Malioboro",
-      },
+      ["07:00", "Berangkat menuju Yogyakarta", "Jakarta"],
+      ["12:00", "Makan siang", "Yogyakarta"],
+      ["14:00", "Check-in hotel", "Pusat Kota Yogyakarta"],
+      ["16:00", "Jalan-jalan di Malioboro", "Jalan Malioboro"],
+      ["19:00", "Wisata kuliner malam", "Kawasan Malioboro"],
     ],
     2: [
-      {
-        id: "yogya-6",
-        time: "07:00",
-        title: "Sarapan",
-        location: "Hotel",
-      },
-      {
-        id: "yogya-7",
-        time: "08:30",
-        title: "Mengunjungi Candi Prambanan",
-        location: "Prambanan",
-      },
-      {
-        id: "yogya-8",
-        time: "12:30",
-        title: "Makan siang",
-        location: "Sekitar Prambanan",
-      },
-      {
-        id: "yogya-9",
-        time: "15:00",
-        title: "Wisata Taman Sari",
-        location: "Kraton, Yogyakarta",
-      },
-      {
-        id: "yogya-10",
-        time: "19:00",
-        title: "Makan malam",
-        location: "Pusat Kota",
-      },
+      ["07:00", "Sarapan", "Hotel"],
+      ["08:30", "Mengunjungi Candi Prambanan", "Prambanan"],
+      ["12:30", "Makan siang", "Sekitar Prambanan"],
+      ["15:00", "Wisata Taman Sari", "Kraton, Yogyakarta"],
+      ["19:00", "Makan malam", "Pusat Kota"],
     ],
     3: [
-      {
-        id: "yogya-11",
-        time: "08:00",
-        title: "Sarapan pagi",
-        location: "Hotel",
-      },
-      {
-        id: "yogya-12",
-        time: "10:00",
-        title: "Belanja oleh-oleh",
-        location: "Kawasan Malioboro",
-      },
-      {
-        id: "yogya-13",
-        time: "12:00",
-        title: "Check-out hotel",
-        location: "Yogyakarta",
-      },
-      {
-        id: "yogya-14",
-        time: "14:00",
-        title: "Perjalanan pulang",
-        location: "Yogyakarta",
-      },
+      ["08:00", "Sarapan pagi", "Hotel"],
+      ["10:00", "Belanja oleh-oleh", "Kawasan Malioboro"],
+      ["12:00", "Check-out hotel", "Yogyakarta"],
+      ["14:00", "Perjalanan pulang", "Yogyakarta"],
     ],
   },
-
   Bandung: {
     1: [
-      {
-        id: "bandung-1",
-        time: "07:00",
-        title: "Berangkat menuju Bandung",
-        location: "Jakarta",
-      },
-      {
-        id: "bandung-2",
-        time: "10:00",
-        title: "Jalan-jalan di Braga",
-        location: "Jalan Braga",
-      },
-      {
-        id: "bandung-3",
-        time: "12:30",
-        title: "Makan siang",
-        location: "Pusat Kota Bandung",
-      },
-      {
-        id: "bandung-4",
-        time: "14:00",
-        title: "Check-in hotel",
-        location: "Bandung",
-      },
-      {
-        id: "bandung-5",
-        time: "17:00",
-        title: "Menikmati suasana kota",
-        location: "Kawasan Dago",
-      },
+      ["07:00", "Berangkat menuju Bandung", "Jakarta"],
+      ["10:00", "Jalan-jalan di Braga", "Jalan Braga"],
+      ["12:30", "Makan siang", "Pusat Kota Bandung"],
+      ["14:00", "Check-in hotel", "Bandung"],
+      ["17:00", "Menikmati suasana kota", "Kawasan Dago"],
     ],
     2: [
-      {
-        id: "bandung-6",
-        time: "07:30",
-        title: "Sarapan",
-        location: "Hotel",
-      },
-      {
-        id: "bandung-7",
-        time: "09:00",
-        title: "Wisata alam Lembang",
-        location: "Lembang",
-      },
-      {
-        id: "bandung-8",
-        time: "12:30",
-        title: "Makan siang",
-        location: "Lembang",
-      },
-      {
-        id: "bandung-9",
-        time: "15:00",
-        title: "Mengunjungi tempat wisata",
-        location: "Lembang",
-      },
-      {
-        id: "bandung-10",
-        time: "19:00",
-        title: "Makan malam",
-        location: "Bandung",
-      },
+      ["07:30", "Sarapan", "Hotel"],
+      ["09:00", "Wisata alam Lembang", "Lembang"],
+      ["12:30", "Makan siang", "Lembang"],
+      ["15:00", "Mengunjungi tempat wisata", "Lembang"],
+      ["19:00", "Makan malam", "Bandung"],
     ],
     3: [
-      {
-        id: "bandung-11",
-        time: "08:00",
-        title: "Sarapan",
-        location: "Hotel",
-      },
-      {
-        id: "bandung-12",
-        time: "10:00",
-        title: "Belanja oleh-oleh",
-        location: "Kartika Sari",
-      },
-      {
-        id: "bandung-13",
-        time: "12:00",
-        title: "Check-out hotel",
-        location: "Bandung",
-      },
-      {
-        id: "bandung-14",
-        time: "14:00",
-        title: "Kembali ke Jakarta",
-        location: "Bandung",
-      },
+      ["08:00", "Sarapan", "Hotel"],
+      ["10:00", "Belanja oleh-oleh", "Kartika Sari"],
+      ["12:00", "Check-out hotel", "Bandung"],
+      ["14:00", "Kembali ke Jakarta", "Bandung"],
     ],
   },
-
   Tokyo: {
     1: [
-      {
-        id: "tokyo-1",
-        time: "09:00",
-        title: "Tiba di Tokyo",
-        location: "Bandara Haneda",
-      },
-      {
-        id: "tokyo-2",
-        time: "12:00",
-        title: "Makan siang",
-        location: "Shinjuku",
-      },
-      {
-        id: "tokyo-3",
-        time: "14:00",
-        title: "Check-in hotel",
-        location: "Shinjuku, Tokyo",
-      },
-      {
-        id: "tokyo-4",
-        time: "16:00",
-        title: "Jalan-jalan di Shibuya",
-        location: "Shibuya Crossing",
-      },
-      {
-        id: "tokyo-5",
-        time: "19:00",
-        title: "Makan malam",
-        location: "Shibuya",
-      },
+      ["09:00", "Tiba di Tokyo", "Bandara Haneda"],
+      ["12:00", "Makan siang", "Shinjuku"],
+      ["14:00", "Check-in hotel", "Shinjuku, Tokyo"],
+      ["16:00", "Jalan-jalan di Shibuya", "Shibuya Crossing"],
+      ["19:00", "Makan malam", "Shibuya"],
     ],
     2: [
-      {
-        id: "tokyo-6",
-        time: "08:00",
-        title: "Sarapan",
-        location: "Hotel",
-      },
-      {
-        id: "tokyo-7",
-        time: "09:30",
-        title: "Mengunjungi Senso-ji",
-        location: "Asakusa",
-      },
-      {
-        id: "tokyo-8",
-        time: "12:30",
-        title: "Makan siang",
-        location: "Asakusa",
-      },
-      {
-        id: "tokyo-9",
-        time: "15:00",
-        title: "Menjelajahi Akihabara",
-        location: "Akihabara",
-      },
-      {
-        id: "tokyo-10",
-        time: "19:30",
-        title: "Kembali ke hotel",
-        location: "Shinjuku",
-      },
+      ["08:00", "Sarapan", "Hotel"],
+      ["09:30", "Mengunjungi Senso-ji", "Asakusa"],
+      ["12:30", "Makan siang", "Asakusa"],
+      ["15:00", "Menjelajahi Akihabara", "Akihabara"],
+      ["19:30", "Kembali ke hotel", "Shinjuku"],
     ],
     3: [
-      {
-        id: "tokyo-11",
-        time: "08:00",
-        title: "Sarapan",
-        location: "Hotel",
-      },
-      {
-        id: "tokyo-12",
-        time: "10:00",
-        title: "Belanja oleh-oleh",
-        location: "Shinjuku",
-      },
-      {
-        id: "tokyo-13",
-        time: "12:00",
-        title: "Check-out hotel",
-        location: "Shinjuku",
-      },
-      {
-        id: "tokyo-14",
-        time: "15:00",
-        title: "Menuju bandara",
-        location: "Bandara Haneda",
-      },
+      ["08:00", "Sarapan", "Hotel"],
+      ["10:00", "Belanja oleh-oleh", "Shinjuku"],
+      ["12:00", "Check-out hotel", "Shinjuku"],
+      ["15:00", "Menuju bandara", "Bandara Haneda"],
     ],
   },
 };
 
-let selectedDestinationName = "Bali";
-let activeDay = 1;
-let itineraries = JSON.parse(JSON.stringify(defaultItineraries));
+const expenseFields = [
+  "transport",
+  "hotel",
+  "food",
+  "attraction",
+  "shopping",
+  "otherExpense",
+];
+
+function createDefaultItineraries() {
+  const result = {};
+
+  Object.entries(itineraryTemplates).forEach(([destination, days]) => {
+    result[destination] = {};
+
+    Object.entries(days).forEach(([day, activities]) => {
+      result[destination][day] = activities.map((activity, index) => {
+        return {
+          id: `${destination}-${day}-${index + 1}`,
+          time: activity[0],
+          title: activity[1],
+          location: activity[2],
+        };
+      });
+    });
+  });
+
+  return result;
+}
+
+const state = {
+  selectedDestination: "Bali",
+  activeDay: 1,
+  budget: {
+    totalBudget: 5000000,
+    ...destinationCosts.Bali,
+  },
+  itineraries: createDefaultItineraries(),
+};
+
 let toastTimer = null;
 
-function formatRupiah(amount) {
+function formatRupiah(value) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(amount);
+  }).format(value);
 }
 
-function getNumber(input) {
-  const value = Number(input.value);
-
-  if (!Number.isFinite(value) || value < 0) {
+function normalizeNumber(value) {
+  if (value === null || value === "" || typeof value === "boolean") {
     return 0;
   }
 
-  return Math.floor(value);
+  const number = Number(value);
+
+  if (!Number.isFinite(number) || number < 0) {
+    return 0;
+  }
+
+  return Math.floor(number);
 }
 
 function escapeHtml(value) {
@@ -508,7 +205,112 @@ function escapeHtml(value) {
   });
 }
 
+function saveState() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(state));
+  } catch (error) {
+    return;
+  }
+}
+
+function restoreState() {
+  let saved;
+
+  try {
+    const raw = localStorage.getItem(storageKey);
+
+    if (!raw) {
+      return;
+    }
+
+    saved = JSON.parse(raw);
+  } catch (error) {
+    return;
+  }
+
+  if (!saved || typeof saved !== "object") {
+    return;
+  }
+
+  if (
+    typeof saved.selectedDestination === "string" &&
+    Object.prototype.hasOwnProperty.call(
+      destinationCosts,
+      saved.selectedDestination,
+    )
+  ) {
+    state.selectedDestination = saved.selectedDestination;
+  }
+
+  if ([1, 2, 3].includes(saved.activeDay)) {
+    state.activeDay = saved.activeDay;
+  }
+
+  state.budget = {
+    totalBudget: 5000000,
+    ...destinationCosts[state.selectedDestination],
+  };
+
+  if (saved.budget && typeof saved.budget === "object") {
+    Object.keys(state.budget).forEach((field) => {
+      const value = saved.budget[field];
+
+      if (
+        value !== undefined &&
+        value !== null &&
+        value !== "" &&
+        Number.isFinite(Number(value)) &&
+        Number(value) >= 0
+      ) {
+        state.budget[field] = normalizeNumber(value);
+      }
+    });
+  }
+
+  if (!saved.itineraries || typeof saved.itineraries !== "object") {
+    return;
+  }
+
+  Object.keys(itineraryTemplates).forEach((destination) => {
+    [1, 2, 3].forEach((day) => {
+      const activities = saved.itineraries[destination]?.[day];
+
+      if (!Array.isArray(activities)) {
+        return;
+      }
+
+      state.itineraries[destination][day] = activities
+        .filter((activity) => {
+          return (
+            activity &&
+            (typeof activity.id === "string" ||
+              typeof activity.id === "number") &&
+            typeof activity.time === "string" &&
+            /^([01]\d|2[0-3]):[0-5]\d$/.test(activity.time) &&
+            typeof activity.title === "string" &&
+            typeof activity.location === "string"
+          );
+        })
+        .map((activity) => {
+          return {
+            id: String(activity.id),
+            time: activity.time,
+            title: activity.title.slice(0, 80),
+            location: activity.location.slice(0, 100),
+          };
+        });
+    });
+  });
+}
+
 function showToast(message) {
+  const toast = document.getElementById("toast");
+  const toastMessage = document.getElementById("toastMessage");
+
+  if (!toast || !toastMessage) {
+    return;
+  }
+
   toastMessage.textContent = message;
   toast.classList.remove("hidden");
 
@@ -519,252 +321,299 @@ function showToast(message) {
   }, 3000);
 }
 
-function saveState() {
-  const budget = {};
+function closeMobileMenu() {
+  const menu = document.getElementById("mobileMenu");
+  const button = document.getElementById("menuButton");
+  const label = document.getElementById("menuButtonLabel");
 
-  Object.entries(budgetInputs).forEach(([key, input]) => {
-    budget[key] = getNumber(input);
-  });
-
-  const state = {
-    selectedDestination: selectedDestinationName,
-    activeDay,
-    budget,
-    itineraries,
-  };
-
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(state));
-  } catch (error) {
+  if (!menu || !button || !label) {
     return;
   }
+
+  menu.classList.add("hidden");
+  button.setAttribute("aria-expanded", "false");
+  button.setAttribute("aria-label", "Buka menu navigasi");
+  label.textContent = "Menu";
 }
 
-function loadState() {
-  let savedState;
+function initializeNavigation() {
+  const menu = document.getElementById("mobileMenu");
+  const button = document.getElementById("menuButton");
+  const label = document.getElementById("menuButtonLabel");
 
-  try {
-    const savedData = localStorage.getItem(storageKey);
+  if (!menu || !button || !label) {
+    return;
+  }
 
-    if (!savedData) {
-      return false;
+  button.addEventListener("click", () => {
+    const willOpen = menu.classList.contains("hidden");
+
+    menu.classList.toggle("hidden", !willOpen);
+    button.setAttribute("aria-expanded", String(willOpen));
+
+    button.setAttribute(
+      "aria-label",
+      willOpen ? "Tutup menu navigasi" : "Buka menu navigasi",
+    );
+
+    label.textContent = willOpen ? "Tutup" : "Menu";
+  });
+
+  document.querySelectorAll(".mobile-link").forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) {
+      closeMobileMenu();
     }
+  });
 
-    savedState = JSON.parse(savedData);
-  } catch (error) {
-    return false;
-  }
-
-  if (!savedState || typeof savedState !== "object") {
-    return false;
-  }
-
-  const savedDestination = savedState.selectedDestination;
-
-  if (
-    typeof savedDestination === "string" &&
-    Object.prototype.hasOwnProperty.call(destinationCosts, savedDestination)
-  ) {
-    selectedDestinationName = savedDestination;
-  }
-
-  if ([1, 2, 3].includes(savedState.activeDay)) {
-    activeDay = savedState.activeDay;
-  }
-
-  if (savedState.itineraries && typeof savedState.itineraries === "object") {
-    Object.keys(defaultItineraries).forEach((destination) => {
-      [1, 2, 3].forEach((day) => {
-        const savedActivities = savedState.itineraries[destination]?.[day];
-
-        if (!Array.isArray(savedActivities)) {
-          return;
-        }
-
-        itineraries[destination][day] = savedActivities
-          .filter((activity) => {
-            return (
-              activity &&
-              (typeof activity.id === "string" ||
-                typeof activity.id === "number") &&
-              typeof activity.time === "string" &&
-              /^([01]\d|2[0-3]):[0-5]\d$/.test(activity.time) &&
-              typeof activity.title === "string" &&
-              typeof activity.location === "string"
-            );
-          })
-          .map((activity) => {
-            return {
-              id: String(activity.id),
-              time: activity.time,
-              title: activity.title.slice(0, 80),
-              location: activity.location.slice(0, 100),
-            };
-          });
-      });
-    });
-  }
-
-  setDestinationCosts(selectedDestinationName);
-
-  if (savedState.budget && typeof savedState.budget === "object") {
-    Object.entries(budgetInputs).forEach(([key, input]) => {
-      const savedValue = Number(savedState.budget[key]);
-
-      if (Number.isFinite(savedValue) && savedValue >= 0) {
-        input.value = Math.floor(savedValue);
-      }
-    });
-  }
-
-  return true;
-}
-
-function setDestinationCosts(destination) {
-  const costs = destinationCosts[destination];
-
-  if (!costs) {
-    return;
-  }
-
-  expenseFields.forEach((field) => {
-    budgetInputs[field].value = costs[field];
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
   });
 }
 
-function updateSelectedDestination() {
-  destinationCards.forEach((card) => {
-    const selected = card.dataset.destination === selectedDestinationName;
+function updateDestinationCards() {
+  const cards = document.querySelectorAll(".destination-card");
+
+  cards.forEach((card) => {
+    const selected = card.dataset.destination === state.selectedDestination;
+
     const button = card.querySelector(".choose-destination");
 
-    card.classList.toggle("ring-2", selected);
-    card.classList.toggle("ring-teal-500", selected);
-    card.classList.toggle("border-teal-300", selected);
-    card.classList.toggle("border-slate-200", !selected);
+    if (!button) {
+      return;
+    }
 
-    button.classList.toggle("bg-teal-700", selected);
-    button.classList.toggle("border-teal-700", selected);
-    button.classList.toggle("text-white", selected);
-    button.classList.toggle("hover:bg-teal-800", selected);
-
-    button.classList.toggle("bg-white", !selected);
-    button.classList.toggle("border-slate-200", !selected);
-    button.classList.toggle("text-slate-700", !selected);
-    button.classList.toggle("hover:bg-teal-50", !selected);
+    card.classList.toggle("is-selected", selected);
+    button.classList.toggle("is-selected", selected);
 
     button.textContent = selected ? "Dipilih" : "Pilih destinasi";
+
     button.setAttribute("aria-pressed", String(selected));
   });
-
-  budgetDestination.textContent = selectedDestinationName;
-  itineraryDestination.textContent = selectedDestinationName;
 }
 
 function selectDestination(destination) {
-  if (!destinationCosts[destination]) {
+  if (!Object.prototype.hasOwnProperty.call(destinationCosts, destination)) {
     return;
   }
 
-  const destinationChanged = selectedDestinationName !== destination;
+  const hasChanged = destination !== state.selectedDestination;
 
-  selectedDestinationName = destination;
+  state.selectedDestination = destination;
 
-  if (destinationChanged) {
-    setDestinationCosts(destination);
-    activeDay = 1;
-    hideActivityForm();
+  if (hasChanged) {
+    expenseFields.forEach((field) => {
+      state.budget[field] = destinationCosts[destination][field];
+    });
+
+    state.activeDay = 1;
   }
 
-  updateSelectedDestination();
-  calculateBudget();
-  renderItinerary();
   saveState();
+  updateDestinationCards();
 
-  showToast(`${destination} berhasil dipilih sebagai tujuan perjalanan.`);
+  window.location.assign("budget.html");
+}
 
-  document.getElementById("budget").scrollIntoView({
-    behavior: "smooth",
-    block: "start",
+function initializeDestinations() {
+  const buttons = document.querySelectorAll(".choose-destination");
+
+  if (buttons.length === 0) {
+    return;
+  }
+
+  updateDestinationCards();
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = button.closest(".destination-card");
+
+      if (!card) {
+        return;
+      }
+
+      selectDestination(card.dataset.destination);
+    });
   });
 }
 
-function calculateBudget() {
-  const totalBudget = getNumber(budgetInputs.totalBudget);
+function getBudgetInputs() {
+  const inputs = {
+    totalBudget: document.getElementById("totalBudget"),
+    transport: document.getElementById("transport"),
+    hotel: document.getElementById("hotel"),
+    food: document.getElementById("food"),
+    attraction: document.getElementById("attraction"),
+    shopping: document.getElementById("shopping"),
+    otherExpense: document.getElementById("otherExpense"),
+  };
 
-  const totalExpense = expenseFields.reduce((total, field) => {
-    return total + getNumber(budgetInputs[field]);
+  if (Object.values(inputs).some((input) => !input)) {
+    return null;
+  }
+
+  return inputs;
+}
+
+function calculateBudget() {
+  const totalBudget = normalizeNumber(state.budget.totalBudget);
+
+  const expenses = expenseFields.reduce((total, field) => {
+    return total + normalizeNumber(state.budget[field]);
   }, 0);
 
-  const remainingBudget = totalBudget - totalExpense;
+  const remaining = totalBudget - expenses;
 
   const percentage =
-    totalBudget > 0 ? Math.round((totalExpense / totalBudget) * 100) : null;
+    totalBudget > 0 ? Math.round((expenses / totalBudget) * 100) : null;
 
-  const progressValue =
+  const progress =
     percentage === null ? 0 : Math.max(0, Math.min(100, percentage));
 
+  const summaryBudget = document.getElementById("summaryBudget");
+  const summaryExpense = document.getElementById("summaryExpense");
+  const summaryRemaining = document.getElementById("summaryRemaining");
+
+  const budgetPercentage = document.getElementById("budgetPercentage");
+  const budgetProgress = document.getElementById("budgetProgress");
+  const budgetProgressTrack = document.getElementById("budgetProgressTrack");
+  const budgetStatus = document.getElementById("budgetStatus");
+
+  if (
+    !summaryBudget ||
+    !summaryExpense ||
+    !summaryRemaining ||
+    !budgetPercentage ||
+    !budgetProgress ||
+    !budgetProgressTrack ||
+    !budgetStatus
+  ) {
+    return;
+  }
+
   summaryBudget.textContent = formatRupiah(totalBudget);
-  summaryExpense.textContent = formatRupiah(totalExpense);
-  summaryRemaining.textContent = formatRupiah(remainingBudget);
+  summaryExpense.textContent = formatRupiah(expenses);
+  summaryRemaining.textContent = formatRupiah(remaining);
+
+  summaryRemaining.classList.toggle("is-negative", remaining < 0);
 
   budgetPercentage.textContent = percentage === null ? "—" : `${percentage}%`;
 
-  budgetProgress.style.width = `${progressValue}%`;
-  budgetProgressTrack.setAttribute("aria-valuenow", String(progressValue));
+  budgetProgress.style.width = `${progress}%`;
+  budgetProgressTrack.setAttribute("aria-valuenow", String(progress));
 
-  summaryRemaining.classList.toggle("text-rose-700", remainingBudget < 0);
-
-  summaryRemaining.classList.toggle("text-teal-800", remainingBudget >= 0);
-
-  budgetProgress.classList.remove("bg-teal-600", "bg-amber-500", "bg-rose-600");
+  budgetStatus.classList.remove("is-safe", "is-warning", "is-danger");
 
   if (totalBudget === 0) {
-    budgetStatus.className =
-      "mt-7 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-800";
+    budgetStatus.classList.add("is-warning");
 
-    if (totalExpense > 0) {
+    if (expenses > 0) {
       budgetStatus.textContent =
         "Belum ada anggaran tersedia. Masukkan total budget terlebih dahulu.";
-
-      budgetProgress.classList.add("bg-rose-600");
+      budgetProgress.style.backgroundColor = "#e11d48";
     } else {
       budgetStatus.textContent =
         "Masukkan jumlah budget untuk mulai menghitung.";
-
-      budgetProgress.classList.add("bg-amber-500");
+      budgetProgress.style.backgroundColor = "#f59e0b";
     }
-  } else if (remainingBudget < 0) {
-    budgetStatus.className =
-      "mt-7 rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm leading-6 text-rose-800";
 
-    budgetStatus.textContent = `Pengeluaran melebihi budget sebesar ${formatRupiah(Math.abs(remainingBudget))}. Coba kurangi beberapa biaya.`;
+    return;
+  }
 
-    budgetProgress.classList.add("bg-rose-600");
-  } else if (percentage >= 85) {
-    budgetStatus.className =
-      "mt-7 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-800";
+  if (remaining < 0) {
+    budgetStatus.classList.add("is-danger");
+
+    budgetStatus.textContent = `Pengeluaran melebihi budget sebesar ${formatRupiah(Math.abs(remaining))}. Coba kurangi beberapa biaya.`;
+
+    budgetProgress.style.backgroundColor = "#e11d48";
+
+    return;
+  }
+
+  if (percentage >= 85) {
+    budgetStatus.classList.add("is-warning");
 
     budgetStatus.textContent =
       "Anggaran hampir habis. Sebaiknya siapkan dana cadangan.";
 
-    budgetProgress.classList.add("bg-amber-500");
-  } else {
-    budgetStatus.className =
-      "mt-7 rounded-lg border border-teal-100 bg-teal-50 p-4 text-sm leading-6 text-teal-800";
+    budgetProgress.style.backgroundColor = "#f59e0b";
 
-    budgetStatus.textContent =
-      "Budget masih mencukupi untuk rencana perjalanan ini.";
-
-    budgetProgress.classList.add("bg-teal-600");
+    return;
   }
+
+  budgetStatus.classList.add("is-safe");
+
+  budgetStatus.textContent =
+    "Budget masih mencukupi untuk rencana perjalanan ini.";
+
+  budgetProgress.style.backgroundColor = "#0d9488";
 }
 
-function resetBudget() {
-  setDestinationCosts(selectedDestinationName);
-  calculateBudget();
-  saveState();
+function initializeBudget() {
+  const inputs = getBudgetInputs();
 
-  showToast("Estimasi pengeluaran berhasil dikembalikan ke nilai awal.");
+  if (!inputs) {
+    return;
+  }
+
+  const destinationLabel = document.getElementById("budgetDestination");
+
+  if (destinationLabel) {
+    destinationLabel.textContent = state.selectedDestination;
+  }
+
+  Object.entries(inputs).forEach(([field, input]) => {
+    input.value = state.budget[field];
+
+    input.addEventListener("input", () => {
+      state.budget[field] = normalizeNumber(input.value);
+
+      calculateBudget();
+      saveState();
+    });
+
+    input.addEventListener("change", () => {
+      input.value = normalizeNumber(input.value);
+      state.budget[field] = normalizeNumber(input.value);
+
+      calculateBudget();
+      saveState();
+    });
+  });
+
+  const calculateButton = document.getElementById("calculateBudget");
+  const resetButton = document.getElementById("resetBudget");
+
+  if (calculateButton) {
+    calculateButton.addEventListener("click", () => {
+      calculateBudget();
+      saveState();
+      showToast("Ringkasan anggaran sudah diperbarui.");
+    });
+  }
+
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      expenseFields.forEach((field) => {
+        const value = destinationCosts[state.selectedDestination][field];
+
+        state.budget[field] = value;
+        inputs[field].value = value;
+      });
+
+      calculateBudget();
+      saveState();
+
+      showToast("Estimasi pengeluaran berhasil dikembalikan ke nilai awal.");
+    });
+  }
+
+  calculateBudget();
 }
 
 function getDayTitle(day) {
@@ -778,8 +627,10 @@ function getDayTitle(day) {
 }
 
 function updateDayTabs() {
-  dayTabs.forEach((tab) => {
-    const isActive = Number(tab.dataset.day) === activeDay;
+  const tabs = document.querySelectorAll(".day-tab");
+
+  tabs.forEach((tab) => {
+    const isActive = Number(tab.dataset.day) === state.activeDay;
 
     tab.setAttribute("aria-pressed", String(isActive));
 
@@ -789,27 +640,52 @@ function updateDayTabs() {
     tab.classList.toggle("border-transparent", !isActive);
     tab.classList.toggle("hover:bg-slate-100", !isActive);
 
-    const labels = tab.querySelectorAll("span");
+    tab.querySelectorAll("span").forEach((span) => {
+      span.classList.toggle("text-teal-800", isActive);
+      span.classList.toggle("text-teal-700", isActive);
 
-    labels.forEach((label) => {
-      label.classList.toggle("text-teal-800", isActive);
-      label.classList.toggle("text-teal-700", isActive);
-      label.classList.toggle("text-slate-700", !isActive);
-      label.classList.toggle("text-slate-500", !isActive);
+      span.classList.toggle("text-slate-700", !isActive);
+      span.classList.toggle("text-slate-500", !isActive);
     });
   });
 }
 
 function renderItinerary() {
-  const activities = [...itineraries[selectedDestinationName][activeDay]].sort(
+  const timeline = document.getElementById("timeline");
+
+  if (!timeline) {
+    return;
+  }
+
+  const destination = state.selectedDestination;
+  const day = state.activeDay;
+
+  const activities = [...state.itineraries[destination][day]].sort(
     (first, second) => {
       return first.time.localeCompare(second.time);
     },
   );
 
-  activeDayLabel.textContent = `Hari ke-${activeDay}`;
-  activeDayTitle.textContent = getDayTitle(activeDay);
-  activityCount.textContent = `${activities.length} kegiatan terjadwal`;
+  const destinationLabel = document.getElementById("itineraryDestination");
+  const dayLabel = document.getElementById("activeDayLabel");
+  const dayTitle = document.getElementById("activeDayTitle");
+  const countLabel = document.getElementById("activityCount");
+
+  if (destinationLabel) {
+    destinationLabel.textContent = destination;
+  }
+
+  if (dayLabel) {
+    dayLabel.textContent = `Hari ke-${day}`;
+  }
+
+  if (dayTitle) {
+    dayTitle.textContent = getDayTitle(day);
+  }
+
+  if (countLabel) {
+    countLabel.textContent = `${activities.length} kegiatan terjadwal`;
+  }
 
   updateDayTabs();
 
@@ -875,52 +751,87 @@ function renderItinerary() {
 }
 
 function deleteActivity(activityId) {
-  const activities = itineraries[selectedDestinationName][activeDay];
+  const destination = state.selectedDestination;
+  const day = state.activeDay;
 
-  const updatedActivities = activities.filter((activity) => {
+  const activities = state.itineraries[destination][day];
+
+  const remainingActivities = activities.filter((activity) => {
     return String(activity.id) !== String(activityId);
   });
 
-  if (updatedActivities.length === activities.length) {
+  if (remainingActivities.length === activities.length) {
     return;
   }
 
-  itineraries[selectedDestinationName][activeDay] = updatedActivities;
+  state.itineraries[destination][day] = remainingActivities;
 
-  renderItinerary();
   saveState();
+  renderItinerary();
 
   showToast("Kegiatan berhasil dihapus dari itinerary.");
 }
 
-function showActivityForm() {
-  activityForm.classList.remove("hidden");
-  openActivityFormButton.setAttribute("aria-expanded", "true");
-  activityTimeInput.focus();
+function hideActivityForm() {
+  const form = document.getElementById("activityForm");
+  const button = document.getElementById("openActivityForm");
+
+  if (!form || !button) {
+    return;
+  }
+
+  form.classList.add("hidden");
+  form.reset();
+
+  button.setAttribute("aria-expanded", "false");
 }
 
-function hideActivityForm() {
-  activityForm.classList.add("hidden");
-  openActivityFormButton.setAttribute("aria-expanded", "false");
-  activityForm.reset();
+function toggleActivityForm() {
+  const form = document.getElementById("activityForm");
+  const button = document.getElementById("openActivityForm");
+  const timeInput = document.getElementById("activityTime");
+
+  if (!form || !button) {
+    return;
+  }
+
+  const shouldOpen = form.classList.contains("hidden");
+
+  if (!shouldOpen) {
+    hideActivityForm();
+    return;
+  }
+
+  form.classList.remove("hidden");
+  button.setAttribute("aria-expanded", "true");
+
+  if (timeInput) {
+    timeInput.focus();
+  }
 }
 
 function saveActivity(event) {
   event.preventDefault();
 
-  const time = activityTimeInput.value.trim();
-  const title = activityTitleInput.value.trim();
-  const location = activityLocationInput.value.trim();
+  const timeInput = document.getElementById("activityTime");
+  const titleInput = document.getElementById("activityTitle");
+  const locationInput = document.getElementById("activityLocation");
+
+  if (!timeInput || !titleInput || !locationInput) {
+    return;
+  }
+
+  const time = timeInput.value.trim();
+  const title = titleInput.value.trim();
+  const location = locationInput.value.trim();
 
   if (!time || !title || !location) {
     showToast("Lengkapi jam, nama kegiatan, dan lokasi.");
-
     return;
   }
 
   if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) {
     showToast("Format waktu tidak valid.");
-
     return;
   }
 
@@ -931,10 +842,12 @@ function saveActivity(event) {
     location: location.slice(0, 100),
   };
 
-  itineraries[selectedDestinationName][activeDay].push(newActivity);
+  state.itineraries[state.selectedDestination][state.activeDay].push(
+    newActivity,
+  );
 
-  renderItinerary();
   saveState();
+  renderItinerary();
   hideActivityForm();
 
   showToast("Kegiatan baru berhasil ditambahkan.");
@@ -945,114 +858,41 @@ function setActiveDay(day) {
     return;
   }
 
-  activeDay = day;
+  state.activeDay = day;
 
   hideActivityForm();
   renderItinerary();
   saveState();
 }
 
-function toggleMobileMenu() {
-  const isOpen = !mobileMenu.classList.contains("hidden");
+function initializeItinerary() {
+  const timeline = document.getElementById("timeline");
 
-  mobileMenu.classList.toggle("hidden", isOpen);
-  menuButton.setAttribute("aria-expanded", String(!isOpen));
-
-  menuButtonLabel.textContent = isOpen ? "Menu" : "Tutup";
-  menuButton.setAttribute(
-    "aria-label",
-    isOpen ? "Buka menu navigasi" : "Tutup menu navigasi",
-  );
-}
-
-function closeMobileMenu() {
-  mobileMenu.classList.add("hidden");
-
-  menuButton.setAttribute("aria-expanded", "false");
-  menuButton.setAttribute("aria-label", "Buka menu navigasi");
-
-  menuButtonLabel.textContent = "Menu";
-}
-
-function initializeApp() {
-  const hasSavedState = loadState();
-
-  if (!hasSavedState) {
-    setDestinationCosts(selectedDestinationName);
+  if (!timeline) {
+    return;
   }
 
-  updateSelectedDestination();
-  calculateBudget();
-  renderItinerary();
-
-  document.getElementById("currentYear").textContent = new Date().getFullYear();
-
-  menuButton.addEventListener("click", toggleMobileMenu);
-
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", closeMobileMenu);
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 768) {
-      closeMobileMenu();
-    }
-  });
-
-  destinationButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const card = button.closest(".destination-card");
-
-      if (!card) {
-        return;
-      }
-
-      selectDestination(card.dataset.destination);
-    });
-  });
-
-  Object.values(budgetInputs).forEach((input) => {
-    input.addEventListener("input", () => {
-      calculateBudget();
-      saveState();
-    });
-
-    input.addEventListener("change", () => {
-      input.value = getNumber(input);
-
-      calculateBudget();
-      saveState();
-    });
-  });
-
-  calculateBudgetButton.addEventListener("click", () => {
-    calculateBudget();
-    saveState();
-
-    showToast("Ringkasan anggaran sudah diperbarui.");
-  });
-
-  resetBudgetButton.addEventListener("click", resetBudget);
-
-  dayTabs.forEach((tab) => {
+  document.querySelectorAll(".day-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       setActiveDay(Number(tab.dataset.day));
     });
   });
 
-  openActivityFormButton.addEventListener("click", () => {
-    const isHidden = activityForm.classList.contains("hidden");
+  const openButton = document.getElementById("openActivityForm");
+  const cancelButton = document.getElementById("cancelActivity");
+  const activityForm = document.getElementById("activityForm");
 
-    if (isHidden) {
-      showActivityForm();
-    } else {
-      hideActivityForm();
-    }
-  });
+  if (openButton) {
+    openButton.addEventListener("click", toggleActivityForm);
+  }
 
-  cancelActivityButton.addEventListener("click", hideActivityForm);
+  if (cancelButton) {
+    cancelButton.addEventListener("click", hideActivityForm);
+  }
 
-  activityForm.addEventListener("submit", saveActivity);
+  if (activityForm) {
+    activityForm.addEventListener("submit", saveActivity);
+  }
 
   timeline.addEventListener("click", (event) => {
     const deleteButton = event.target.closest("[data-delete-id]");
@@ -1067,9 +907,29 @@ function initializeApp() {
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       hideActivityForm();
-      closeMobileMenu();
     }
   });
+
+  renderItinerary();
 }
 
-initializeApp();
+function initializeApp() {
+  restoreState();
+
+  const currentYear = document.getElementById("currentYear");
+
+  if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
+  }
+
+  initializeNavigation();
+  initializeDestinations();
+  initializeBudget();
+  initializeItinerary();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeApp);
+} else {
+  initializeApp();
+}

@@ -31,3 +31,115 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #ccfbf1;
   color: #115e59;
 }
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: #475569;
+  transition: color 220ms ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  left: 0;
+  height: 2px;
+  background-color: #0f766e;
+  border-radius: 999px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 240ms ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link[aria-current="page"] {
+  color: #0f766e;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.mobile-link {
+  color: #475569;
+  transition:
+    color 220ms ease,
+    background-color 220ms ease;
+}
+
+.mobile-link:hover,
+.mobile-link:focus-visible,
+.mobile-link[aria-current="page"] {
+  color: #0f766e;
+  background-color: #f0fdfa;
+}
+
+.destination-card.is-selected {
+  border-color: #5eead4;
+  box-shadow: 0 0 0 2px #14b8a6;
+}
+
+.choose-destination.is-selected {
+  background-color: #0f766e;
+  border-color: #0f766e;
+  color: #ffffff;
+}
+
+.choose-destination.is-selected:hover {
+  background-color: #115e59;
+}
+
+.budget-status.is-safe {
+  border-color: #ccfbf1;
+  background-color: #f0fdfa;
+  color: #115e59;
+}
+
+.budget-status.is-warning {
+  border-color: #fde68a;
+  background-color: #fffbeb;
+  color: #92400e;
+}
+
+.budget-status.is-danger {
+  border-color: #fecdd3;
+  background-color: #fff1f2;
+  color: #9f1239;
+}
+
+#summaryRemaining.is-negative {
+  color: #be123c;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .nav-link,
+  .nav-link::after,
+  .mobile-link {
+    transition-duration: 0ms;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0ms;
+  }
+}
